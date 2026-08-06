@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="es-UY" data-theme="system">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>WoodManager</title>
+    <meta name="description" content="Control de gastos y oportunidades de trabajo para un taller de madera.">
+    <meta name="theme-color" content="#173f35">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WoodManager">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
+
+    <div class="app-shell">
+        <header class="app-header">
+            <div>
+                <p class="app-kicker">Gestión personal del taller</p>
+                <h1 class="app-title">WoodManager</h1>
+            </div>
+
+            <button
+                class="icon-button"
+                id="themeToggle"
+                type="button"
+                aria-label="Cambiar tema"
+                title="Cambiar tema"
+            >
+                <span aria-hidden="true">Aa</span>
+            </button>
+        </header>
+
+        <main id="contenido-principal" class="app-main">
+            <section class="view is-active" id="dashboard" data-view="dashboard" aria-labelledby="dashboard-title">
+                <header class="section-header">
+                    <div>
+                        <p class="eyebrow" id="dashboardGreeting">Resumen del día</p>
+                        <h2 id="dashboard-title">Panel principal</h2>
+                    </div>
+                </header>
+
+                <div class="dashboard-grid">
+                    <article class="summary-card summary-card--primary">
+                        <p class="summary-card__label">Gastos del mes</p>
+                        <strong class="summary-card__value" id="dashboardExpenseTotal">$ 0</strong>
+                        <p class="summary-card__meta" id="dashboardExpenseStatus">Sin límites configurados</p>
+                    </article>
+
+                    <article class="summary-card">
+                        <p class="summary-card__label">Categorías controladas</p>
+                        <strong class="summary-card__value" id="dashboardLimitCount">0</strong>
+                        <p class="summary-card__meta">Con límite mensual</p>
+                    </article>
+                </div>
+
+                <article class="panel" aria-labelledby="daily-project-title">
+                    <div class="panel__header">
+                        <div>
+                            <p class="eyebrow">Selección diaria</p>
+                            <h3 id="daily-project-title">Proyecto recomendado</h3>
+                        </div>
+                        <button class="text-button" type="button" data-route-target="proyectos">Ver catálogo</button>
+                    </div>
+
+                    <div id="dailyProject" class="daily-project">
+                        <p class="empty-state">Cargando catálogo...</p>
+                    </div>
+                </article>
+
+                <section class="quick-actions" aria-labelledby="quick-actions-title">
+                    <h3 id="quick-actions-title">Accesos rápidos</h3>
+                    <div class="quick-actions__grid">
+                        <button class="quick-action" type="button" data-route-target="gastos">
+                            <span class="quick-action__title">Registrar gasto</span>
+                            <span class="quick-action__description">Agregar un movimiento y revisar límites.</span>
+                        </button>
+
+                        <button class="quick-action" type="button" data-route-target="proyectos">
+                            <span class="quick-action__title">Buscar proyecto</span>
+                            <span class="quick-action__description">Comparar costo, tiempo y margen.</span>
+                        </button>
+
+                        <button class="quick-action" type="button" data-route-target="favoritos">
+                            <span class="quick-action__title">Revisar guardados</span>
+                            <span class="quick-action__description">Ver favoritos y proyectos anclados.</span>
+                        </button>
+                    </div>
+                </section>
+            </section>
+
+            <section class="view" id="gastos" data-view="gastos" aria-labelledby="gastos-title" hidden>
+                <header class="section-header">
+                    <div>
+                        <p class="eyebrow">Control mensual</p>
+                        <h2 id="gastos-title">Gastos y límites</h2>
+                    </div>
+                </header>
+
+                <div class="content-grid content-grid--forms">
+                    <form class="panel form-panel" id="expenseForm">
+                        <div class="panel__header">
+                            <h3>Registrar gasto</h3>
+                        </div>
+
+                        <label class="field">
+                            <span class="field__label">Categoría</span>
+                            <select id="expenseCategory" name="category" required>
+                                <option value="Comida">Comida</option>
+                                <option value="Salidas">Salidas</option>
+                                <option value="Transporte">Transporte</option>
+                                <option value="Materiales">Materiales</option>
+                                <option value="Herramientas">Herramientas</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </label>
+
+                        <label class="field">
+                            <span class="field__label">Monto</span>
+                            <input
+                                id="expenseAmount"
+                                name="amount"
+                                type="number"
+                                min="1"
+                                step="1"
+                                inputmode="decimal"
+                                placeholder="Ejemplo: 850"
+                                required
+                            >
+                        </label>
+
+                        <label class="field">
+                            <span class="field__label">Detalle opcional</span>
+                            <input
+                                id="expenseNote"
+                                name="note"
+                                type="text"
+                                maxlength="80"
+                                placeholder="Ejemplo: almuerzo"
+                            >
+                        </label>
+
+                        <button class="primary-button" type="submit">Guardar gasto</button>
+                    </form>
+
+                    <form class="panel form-panel" id="limitForm">
+                        <div class="panel__header">
+                            <h3>Definir límite</h3>
+                        </div>
+
+                        <label class="field">
+                            <span class="field__label">Categoría</span>
+                            <select id="limitCategory" name="category" required>
+                                <option value="Comida">Comida</option>
+                                <option value="Salidas">Salidas</option>
+                                <option value="Transporte">Transporte</option>
+                                <option value="Materiales">Materiales</option>
+                                <option value="Herramientas">Herramientas</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </label>
+
+                        <label class="field">
+                            <span class="field__label">Límite mensual</span>
+                            <input
+                                id="limitAmount"
+                                name="amount"
+                                type="number"
+                                min="1"
+                                step="1"
+                                inputmode="decimal"
+                                placeholder="Ejemplo: 5000"
+                                required
+                            >
+                        </label>
+
+                        <button class="secondary-button" type="submit">Guardar límite</button>
+                    </form>
+                </div>
+
+                <section class="panel" aria-labelledby="limits-summary-title">
+                    <div class="panel__header">
+                        <h3 id="limits-summary-title">Estado por categoría</h3>
+                    </div>
+                    <div id="limitsSummary" class="limits-list"></div>
+                </section>
+
+                <section class="panel" aria-labelledby="expense-history-title">
+                    <div class="panel__header">
+                        <h3 id="expense-history-title">Movimientos recientes</h3>
+                    </div>
+                    <div id="expenseHistory" class="expense-list"></div>
+                </section>
+            </section>
+
+            <section class="view" id="proyectos" data-view="proyectos" aria-labelledby="proyectos-title" hidden>
+                <header class="section-header">
+                    <div>
+                        <p class="eyebrow">Oportunidades de venta</p>
+                        <h2 id="proyectos-title">Catálogo de proyectos</h2>
+                    </div>
+                </header>
+
+                <section class="catalog-toolbar" aria-label="Filtros del catálogo">
+                    <label class="field field--search">
+                        <span class="field__label">Buscar</span>
+                        <input id="projectSearch" type="search" placeholder="Nombre, cliente o necesidad">
+                    </label>
+
+                    <label class="field">
+                        <span class="field__label">Tipo</span>
+                        <select id="projectCategoryFilter">
+                            <option value="all">Todos</option>
+                            <option value="Carpintería">Carpintería</option>
+                            <option value="Tornería">Tornería</option>
+                        </select>
+                    </label>
+
+                    <label class="field">
+                        <span class="field__label">Ordenar</span>
+                        <select id="projectSort">
+                            <option value="recommended">Recomendados</option>
+                            <option value="profit-desc">Mayor ganancia</option>
+                            <option value="cost-asc">Menor inversión</option>
+                            <option value="time-asc">Menor tiempo</option>
+                        </select>
+                    </label>
+                </section>
+
+                <div id="projectCatalog" class="project-grid" aria-live="polite"></div>
+            </section>
+
+            <section class="view" id="favoritos" data-view="favoritos" aria-labelledby="favoritos-title" hidden>
+                <header class="section-header">
+                    <div>
+                        <p class="eyebrow">Selección personal</p>
+                        <h2 id="favoritos-title">Guardados y anclados</h2>
+                    </div>
+                </header>
+
+                <section class="panel" aria-labelledby="pinned-title">
+                    <div class="panel__header">
+                        <h3 id="pinned-title">Anclados</h3>
+                    </div>
+                    <div id="pinnedProjects" class="project-grid project-grid--compact"></div>
+                </section>
+
+                <section class="panel" aria-labelledby="favorites-title">
+                    <div class="panel__header">
+                        <h3 id="favorites-title">Favoritos</h3>
+                    </div>
+                    <div id="favoriteProjects" class="project-grid project-grid--compact"></div>
+                </section>
+            </section>
+
+            <section class="view" id="configuracion" data-view="configuracion" aria-labelledby="config-title" hidden>
+                <header class="section-header">
+                    <div>
+                        <p class="eyebrow">Preferencias</p>
+                        <h2 id="config-title">Configuración</h2>
+                    </div>
+                </header>
+
+                <form class="panel form-panel" id="settingsForm">
+                    <div class="panel__header">
+                        <div>
+                            <h3>Cálculos del taller</h3>
+                            <p class="panel__description">Estos valores se usan para estimar costos y ganancias.</p>
+                        </div>
+                    </div>
+
+                    <label class="field">
+                        <span class="field__label">Valor de tu hora</span>
+                        <input
+                            id="hourlyRate"
+                            name="hourlyRate"
+                            type="number"
+                            min="0"
+                            step="10"
+                            inputmode="decimal"
+                            required
+                        >
+                    </label>
+
+                    <label class="field">
+                        <span class="field__label">Ajuste de materiales</span>
+                        <select id="materialFactor" name="materialFactor">
+                            <option value="0.9">Precios 10% más bajos</option>
+                            <option value="1">Precios base</option>
+                            <option value="1.1">Precios 10% más altos</option>
+                            <option value="1.25">Precios 25% más altos</option>
+                            <option value="1.5">Precios 50% más altos</option>
+                        </select>
+                    </label>
+
+                    <label class="field">
+                        <span class="field__label">Tema</span>
+                        <select id="themePreference" name="themePreference">
+                            <option value="system">Usar el del dispositivo</option>
+                            <option value="light">Claro</option>
+                            <option value="dark">Oscuro</option>
+                        </select>
+                    </label>
+
+                    <label class="field">
+                        <span class="field__label">Catálogo remoto opcional</span>
+                        <input
+                            id="remoteCatalogUrl"
+                            name="remoteCatalogUrl"
+                            type="url"
+                            inputmode="url"
+                            placeholder="https://ejemplo.com/proyectos.json"
+                        >
+                        <span class="field__hint">Si queda vacío, se usa el catálogo incluido en la aplicación.</span>
+                    </label>
+
+                    <button class="primary-button" type="submit">Guardar configuración</button>
+                </form>
+
+                <section class="panel">
+                    <div class="panel__header">
+                        <div>
+                            <h3>Datos locales</h3>
+                            <p class="panel__description">Los gastos y selecciones se guardan en este dispositivo.</p>
+                        </div>
+                    </div>
+
+                    <button class="danger-button" id="resetLocalData" type="button">Borrar datos locales</button>
+                </section>
+            </section>
+        </main>
+
+        <nav class="bottom-nav" aria-label="Navegación principal">
+            <button class="bottom-nav__item is-active" type="button" data-route="dashboard" aria-current="page">
+                <span class="bottom-nav__label">Inicio</span>
+            </button>
+            <button class="bottom-nav__item" type="button" data-route="gastos">
+                <span class="bottom-nav__label">Gastos</span>
+            </button>
+            <button class="bottom-nav__item" type="button" data-route="proyectos">
+                <span class="bottom-nav__label">Proyectos</span>
+            </button>
+            <button class="bottom-nav__item" type="button" data-route="favoritos">
+                <span class="bottom-nav__label">Guardados</span>
+            </button>
+            <button class="bottom-nav__item" type="button" data-route="configuracion">
+                <span class="bottom-nav__label">Ajustes</span>
+            </button>
+        </nav>
+    </div>
+
+    <dialog class="project-dialog" id="projectDialog">
+        <article class="project-dialog__content">
+            <button class="dialog-close" id="closeProjectDialog" type="button" aria-label="Cerrar detalle">Cerrar</button>
+            <div id="projectDialogContent"></div>
+        </article>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

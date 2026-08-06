@@ -1,0 +1,77 @@
+@media (max-width: 800px) {
+    .content-grid--forms,
+    .daily-project,
+    .catalog-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .daily-project__image {
+        min-height: 190px;
+        max-height: 260px;
+    }
+}
+
+@media (max-width: 620px) {
+    .app-main {
+        padding-inline: 14px;
+    }
+
+    .dashboard-grid,
+    .quick-actions__grid,
+    .project-grid,
+    .project-grid--compact,
+    .project-detail__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-card {
+        min-height: 130px;
+    }
+
+    .project-card__actions {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .project-card__actions .project-action--primary {
+        grid-column: 1 / -1;
+    }
+
+    .bottom-nav__label {
+        font-size: 0.67rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .bottom-nav {
+        right: 24px;
+        bottom: 22px;
+        left: 24px;
+        width: min(680px, calc(100% - 48px));
+        margin-inline: auto;
+        border: 1px solid var(--color-border);
+        border-radius: 18px;
+    }
+
+    .app-shell {
+        padding-bottom: 116px;
+    }
+
+    .toast {
+        bottom: 112px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

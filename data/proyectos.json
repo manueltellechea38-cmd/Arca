@@ -1,0 +1,269 @@
+[
+  {
+    "id": "tabla-premium",
+    "name": "Tabla de picar premium",
+    "category": "Carpintería",
+    "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Tabla de madera sobre una mesada de cocina",
+    "description": "Tabla gruesa de madera maciza, terminada con aceite apto para uso alimentario.",
+    "client": "Parrilleros, familias, restaurantes pequeños y personas que buscan un regalo útil.",
+    "need": "Resuelve una necesidad diaria de cocina y también funciona como producto de regalo.",
+    "materialCost": 380,
+    "consumablesCost": 120,
+    "hours": 2.5,
+    "baseSale": 1650,
+    "saleMultiplier": 2.1,
+    "demandScore": 5,
+    "salesChannels": [
+      "Instagram y WhatsApp",
+      "Ferias locales",
+      "Regalos por encargo",
+      "Restaurantes"
+    ],
+    "materials": [
+      "Madera dura seca",
+      "Aceite apto para alimentos",
+      "Lijas de varios granos"
+    ],
+    "tools": [
+      "Sierra",
+      "Cepillo o lijadora",
+      "Taladro opcional"
+    ]
+  },
+  {
+    "id": "martillo-artesanal",
+    "name": "Martillo artesanal personalizado",
+    "category": "Tornería",
+    "image": "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Herramientas manuales sobre un banco de trabajo",
+    "description": "Martillo con mango torneado, buen balance y opción de grabado personalizado.",
+    "client": "Carpinteros, herreros, coleccionistas, trabajadores rurales y compradores de regalos.",
+    "need": "Ofrece una herramienta funcional, durable y personalizada, difícil de encontrar en comercios comunes.",
+    "materialCost": 290,
+    "consumablesCost": 90,
+    "hours": 1.4,
+    "baseSale": 1550,
+    "saleMultiplier": 2.3,
+    "demandScore": 5,
+    "salesChannels": [
+      "Clientes anteriores",
+      "Facebook Marketplace",
+      "Instagram",
+      "Ferias de herramientas"
+    ],
+    "materials": [
+      "Madera para mango",
+      "Cabeza metálica",
+      "Aceite o barniz",
+      "Material de grabado"
+    ],
+    "tools": [
+      "Torno",
+      "Lijadora",
+      "Taladro",
+      "Elementos de medición"
+    ]
+  },
+  {
+    "id": "porta-vinos",
+    "name": "Porta vinos de sobremesa",
+    "category": "Carpintería",
+    "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Botellas de vino presentadas sobre madera",
+    "description": "Soporte decorativo para una o dos botellas, adaptable a regalos y comercios gastronómicos.",
+    "client": "Bodegas, restaurantes, parejas, empresas y personas que hacen regalos.",
+    "need": "Presenta y organiza botellas con una pieza decorativa de mayor valor percibido.",
+    "materialCost": 420,
+    "consumablesCost": 110,
+    "hours": 2.8,
+    "baseSale": 1950,
+    "saleMultiplier": 2.15,
+    "demandScore": 4,
+    "salesChannels": [
+      "Bodegas",
+      "Restaurantes",
+      "Regalos empresariales",
+      "Marketplace"
+    ],
+    "materials": [
+      "Madera seca",
+      "Cola",
+      "Lijas",
+      "Aceite o barniz"
+    ],
+    "tools": [
+      "Sierra",
+      "Taladro",
+      "Fresadora opcional",
+      "Lijadora"
+    ]
+  },
+  {
+    "id": "porta-cuchillos",
+    "name": "Porta cuchillos magnético",
+    "category": "Carpintería",
+    "image": "https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Cuchillos de cocina sobre una superficie de madera",
+    "description": "Barra de madera con imanes internos para organizar cuchillos sin ocupar mesada.",
+    "client": "Cocineros, parrilleros, hogares, restaurantes y alojamientos turísticos.",
+    "need": "Ordena la cocina, libera espacio y muestra los cuchillos de forma atractiva.",
+    "materialCost": 520,
+    "consumablesCost": 190,
+    "hours": 3.2,
+    "baseSale": 2400,
+    "saleMultiplier": 2.2,
+    "demandScore": 5,
+    "salesChannels": [
+      "Instagram",
+      "Restaurantes",
+      "Casas de regalos",
+      "Marketplace"
+    ],
+    "materials": [
+      "Madera dura",
+      "Imanes de neodimio",
+      "Cola",
+      "Sistema de fijación"
+    ],
+    "tools": [
+      "Taladro de banco",
+      "Fresadora",
+      "Lijadora",
+      "Sierra"
+    ]
+  },
+  {
+    "id": "candelabro-torneado",
+    "name": "Candelabro torneado",
+    "category": "Tornería",
+    "image": "https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Objeto decorativo de madera torneada",
+    "description": "Pieza decorativa torneada, vendible sola o en juegos de dos o tres alturas.",
+    "client": "Hogares, decoradores, tiendas de regalos, salones de eventos y alojamientos.",
+    "need": "Aporta decoración cálida y puede personalizarse para distintos estilos.",
+    "materialCost": 220,
+    "consumablesCost": 70,
+    "hours": 1.2,
+    "baseSale": 950,
+    "saleMultiplier": 2.4,
+    "demandScore": 3,
+    "salesChannels": [
+      "Ferias",
+      "Instagram",
+      "Tiendas de decoración",
+      "Eventos"
+    ],
+    "materials": [
+      "Bloque de madera",
+      "Lijas",
+      "Aceite o cera"
+    ],
+    "tools": [
+      "Torno",
+      "Gubias",
+      "Calibre",
+      "Elementos de lijado"
+    ]
+  },
+  {
+    "id": "banco-rustico",
+    "name": "Banco rústico compacto",
+    "category": "Carpintería",
+    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Banco de madera en un ambiente interior",
+    "description": "Banco pequeño para entrada, dormitorio, galería o comercio, con opción de medidas personalizadas.",
+    "client": "Familias, casas de campo, comercios, cabañas y alojamientos turísticos.",
+    "need": "Agrega asiento y decoración en espacios reducidos sin requerir un mueble grande.",
+    "materialCost": 980,
+    "consumablesCost": 260,
+    "hours": 5.5,
+    "baseSale": 3900,
+    "saleMultiplier": 2.05,
+    "demandScore": 4,
+    "salesChannels": [
+      "Marketplace",
+      "Instagram",
+      "Alojamientos",
+      "Clientes por recomendación"
+    ],
+    "materials": [
+      "Madera estructural seca",
+      "Tornillos",
+      "Cola",
+      "Acabado protector"
+    ],
+    "tools": [
+      "Sierra",
+      "Taladro",
+      "Escuadra",
+      "Lijadora",
+      "Prensas"
+    ]
+  },
+  {
+    "id": "soporte-celular",
+    "name": "Soporte de escritorio para celular",
+    "category": "Carpintería",
+    "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Celular sobre un escritorio de madera",
+    "description": "Soporte simple, pequeño y fácil de producir en serie con retazos de madera.",
+    "client": "Estudiantes, oficinas, comercios y empresas que buscan regalos económicos.",
+    "need": "Mantiene el teléfono visible y ordenado durante el trabajo o estudio.",
+    "materialCost": 90,
+    "consumablesCost": 35,
+    "hours": 0.6,
+    "baseSale": 450,
+    "saleMultiplier": 2.5,
+    "demandScore": 4,
+    "salesChannels": [
+      "Empresas",
+      "Centros de estudio",
+      "Ferias",
+      "Ventas por cantidad"
+    ],
+    "materials": [
+      "Retazo de madera",
+      "Lija",
+      "Aceite o barniz"
+    ],
+    "tools": [
+      "Sierra",
+      "Lijadora",
+      "Taladro opcional"
+    ]
+  },
+  {
+    "id": "cuenco-torneado",
+    "name": "Cuenco torneado decorativo",
+    "category": "Tornería",
+    "image": "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=82",
+    "imageAlt": "Cuenco artesanal sobre una mesa",
+    "description": "Cuenco de madera para decoración, llaves, frutos secos o presentación de objetos.",
+    "client": "Hogares, tiendas de decoración, restaurantes y compradores de artesanía.",
+    "need": "Combina utilidad, decoración y el valor de una pieza artesanal única.",
+    "materialCost": 340,
+    "consumablesCost": 95,
+    "hours": 2.2,
+    "baseSale": 1450,
+    "saleMultiplier": 2.25,
+    "demandScore": 4,
+    "salesChannels": [
+      "Ferias artesanales",
+      "Instagram",
+      "Restaurantes",
+      "Tiendas de decoración"
+    ],
+    "materials": [
+      "Bloque de madera seca",
+      "Lijas",
+      "Aceite o cera"
+    ],
+    "tools": [
+      "Torno",
+      "Gubias para cuencos",
+      "Calibre",
+      "Protección facial"
+    ]
+  }
+]
