@@ -233,21 +233,38 @@ function initWelcome() {
   const screen = $("#welcomeScreen");
   const shell = $("#appShell");
 
-  $("#welcomeDate").textContent = new Intl.DateTimeFormat("es-UY", {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  }).format(new Date());
+  const refreshWelcome = () => {
+    $("#welcomeDate").textContent = new Intl.DateTimeFormat("es-UY", {
+      weekday: "long",
+      day: "numeric",
+      month: "long"
+    }).format(new Date());
 
-  $("#welcomeBalance").textContent = privacyHidden ? "••••••" : formatMoney(currentBalance());
+    $("#welcomeBalance").textContent =
+      privacyHidden ? "••••••" : formatMoney(currentBalance());
+  };
+
+  const showWelcome = () => {
+    if (!state.settings.showWelcome) return;
+
+    refreshWelcome();
+    screen.hidden = false;
+    screen.classList.remove("is-hidden");
+    shell.setAttribute("aria-hidden", "true");
+  };
 
   const enter = () => {
     screen.classList.add("is-hidden");
     shell.setAttribute("aria-hidden", "false");
+
     setTimeout(() => {
-      if (screen.classList.contains("is-hidden")) screen.hidden = true;
+      if (screen.classList.contains("is-hidden")) {
+        screen.hidden = true;
+      }
     }, 450);
   };
+
+  refreshWelcome();
 
   $("#enterApp").addEventListener("click", enter);
 
@@ -255,6 +272,20 @@ function initWelcome() {
     screen.hidden = true;
     shell.setAttribute("aria-hidden", "false");
   }
+
+  let wentToBackground = false;
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      wentToBackground = true;
+      return;
+    }
+
+    if (document.visibilityState === "visible" && wentToBackground) {
+      wentToBackground = false;
+      showWelcome();
+    }
+  });
 }
 
 function initNavigation() {
@@ -1211,8 +1242,31 @@ function init() {
   renderSaved();
 
   if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    window.addEventListener("load", async () => {
+      try {
+        let reloadingForUpdate = false;
+        const hadController = Boolean(navigator.serviceWorker.controller);
+
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (!hadController || reloadingForUpdate) return;
+          reloadingForUpdate = true;
+          location.reload();
+        });
+
+        const registration = await navigator.serviceWorker.register("./sw.js", {
+          updateViaCache: "none"
+        });
+
+        registration.update().catch(() => {});
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "visible") {
+            registration.update().catch(() => {});
+          }
+        });
+      } catch (_) {
+        // La app sigue funcionando aunque no se pueda registrar el service worker.
+      }
     });
   }
 }
