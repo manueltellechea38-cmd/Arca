@@ -1,32 +1,36 @@
-# WoodManager
+# Arca v0.2.3
 
-Aplicación web progresiva para controlar gastos y evaluar proyectos de carpintería y tornería.
+## Cambios principales
 
-## Abrir en la computadora
+- Nueva pantalla de bienvenida con botón Entrar.
+- Rediseño inspirado en el lenguaje Liquid Glass actual de Apple.
+- Navegación inferior flotante con cuatro áreas: Inicio, Finanzas, Guardados y Ajustes.
+- Eliminación completa de la sección Ideas.
+- Tarjeta de versículo en el panel principal.
+- El versículo cambia automáticamente; por defecto, cada 30 minutos.
+- Los versículos guardados pueden copiarse, editarse, anclarse, desanclarse y borrarse.
+- Versículos incluidos en Reina-Valera 1909.
+- Mejoras de privacidad para ocultar montos.
+- Panel principal personalizable: visibilidad y orden de Saldo, Gastos e Ingresos.
+- Tema, acento, bienvenida, reloj y frecuencia del versículo configurables.
+- Exportación e importación de una copia de seguridad JSON.
+- Saldo inicial rediseñado: luego de configurarlo, el formulario desaparece y queda un resumen con botón Editar.
+- Importes monetarios compatibles con coma o punto decimal.
+- Se mantienen movimientos editables, límites, categorías e historial mensual.
+- Migración de los datos financieros de Arca v0.2.1.
 
-No abras `index.html` con doble clic. El catálogo usa `fetch`, por lo que necesita un servidor local.
+## Versículos
 
-En Visual Studio Code:
+La selección incluida utiliza Reina-Valera 1909, una traducción en dominio público. La aplicación no interpreta ni explica los versículos: solo muestra el texto y la referencia.
 
-1. Instala la extensión **Live Server**.
-2. Abre la carpeta `CarpinteroApp`.
-3. Haz clic derecho en `index.html`.
-4. Selecciona **Open with Live Server**.
+## Uso local
 
-## Publicar
+Abrir `index.html` mediante Live Server.
 
-Para instalarla en un iPhone, publica la carpeta en un servicio con HTTPS, por ejemplo GitHub Pages. Luego abre la dirección desde Safari y agrégala a la pantalla de inicio.
+## PWA
 
-## Catálogo remoto
+La aplicación puede instalarse desde Safari en iPhone y ejecutarse en modo standalone. El service worker usa caché `woodmanager-v022`.
 
-La aplicación funciona con `data/proyectos.json`. En Configuración puedes ingresar una URL pública que devuelva otro archivo JSON con la misma estructura. Si esa dirección falla, la aplicación vuelve al catálogo local o a la última copia guardada.
 
-## Estructura
-
-- `index.html`: estructura semántica de la interfaz.
-- `css/`: estilos separados por responsabilidad.
-- `js/core/`: estado, navegación, almacenamiento y utilidades.
-- `js/modules/`: funciones de cada pantalla.
-- `js/services/`: conexión con el catálogo.
-- `data/`: catálogo local de respaldo.
-- `sw.js`: funcionamiento sin conexión y caché.
+## v0.2.3
+- Se reforzó la prevención de autocompletado/historial en campos de texto mediante nombres aleatorios por sesión y lectura por `data-field`.
