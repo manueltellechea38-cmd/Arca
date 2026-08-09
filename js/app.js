@@ -245,8 +245,6 @@ function initWelcome() {
   };
 
   const showWelcome = () => {
-    if (!state.settings.showWelcome) return;
-
     refreshWelcome();
     screen.hidden = false;
     screen.classList.remove("is-hidden");
@@ -268,10 +266,9 @@ function initWelcome() {
 
   $("#enterApp").addEventListener("click", enter);
 
-  if (!state.settings.showWelcome) {
-    screen.hidden = true;
-    shell.setAttribute("aria-hidden", "false");
-  }
+  screen.hidden = false;
+  screen.classList.remove("is-hidden");
+  shell.setAttribute("aria-hidden", "true");
 
   let wentToBackground = false;
 
