@@ -1,4 +1,4 @@
-const CACHE = "arca-v025";
+const CACHE = "arca-v026-recovery";
 const APP_SHELL = [
   "./",
   "./index.html",

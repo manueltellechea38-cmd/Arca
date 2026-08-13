@@ -32,6 +32,10 @@
       <button class="glass-primary welcome-enter" id="enterApp" type="button">
         Entrar
       </button>
+
+      <button class="recovery-link" id="openRecovery" type="button">
+        Recuperar mis datos
+      </button>
     </div>
   </section>
 
@@ -336,7 +340,240 @@
     </form>
   </dialog>
 
+
+  <!-- Recuperación de emergencia: funciona sin depender de js/app.js -->
+  <div class="recovery-overlay" id="recoveryOverlay" hidden>
+    <section class="recovery-panel" role="dialog" aria-modal="true" aria-labelledby="recoveryTitle">
+      <div class="recovery-heading">
+        <div>
+          <p class="eyebrow">Modo seguro</p>
+          <h2 id="recoveryTitle">Recuperar datos de Arca</h2>
+        </div>
+        <button class="round-control round-control--small" id="closeRecovery" type="button" aria-label="Cerrar">×</button>
+      </div>
+
+      <p class="recovery-copy">
+        Esta herramienta no modifica ni borra nada. Solo lee los datos financieros guardados en esta instalación y permite hacer una copia.
+      </p>
+
+      <div class="recovery-summary" id="recoverySummary"></div>
+
+      <div class="recovery-actions">
+        <button class="glass-primary" id="shareRecovery" type="button">
+          Compartir copia
+        </button>
+
+        <button class="glass-secondary" id="downloadRecovery" type="button">
+          Descargar copia
+        </button>
+
+        <button class="glass-secondary" id="copyRecovery" type="button">
+          Copiar copia
+        </button>
+      </div>
+
+      <details class="recovery-details">
+        <summary>Ver datos encontrados</summary>
+        <textarea id="recoveryPreview" readonly spellcheck="false"></textarea>
+      </details>
+
+      <p class="recovery-note" id="recoveryMessage">
+        No cierres ni elimines esta instalación hasta confirmar que la copia fue guardada.
+      </p>
+    </section>
+  </div>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const RECOVERY_PREFIXES = [
+        "woodmanager-v021:",
+        "woodmanager-v022:",
+        "arca-"
+      ];
+
+      const $recovery = (selector) => document.querySelector(selector);
+
+      function getRecoveryData() {
+        const storage = {};
+
+        for (let index = 0; index < localStorage.length; index += 1) {
+          const key = localStorage.key(index);
+
+          if (!key || !RECOVERY_PREFIXES.some((prefix) => key.startsWith(prefix))) {
+            continue;
+          }
+
+          storage[key] = localStorage.getItem(key);
+        }
+
+        return {
+          app: "Arca",
+          type: "emergency-local-storage-backup",
+          createdAt: new Date().toISOString(),
+          location: location.origin + location.pathname,
+          storage
+        };
+      }
+
+      function safeParse(value, fallback) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return fallback;
+        }
+      }
+
+      function getCounts(backup) {
+        const storage = backup.storage;
+        const transactionsRaw =
+          storage["woodmanager-v022:transactions"] ??
+          storage["woodmanager-v021:transactions"];
+
+        const categoriesRaw =
+          storage["woodmanager-v022:categories"] ??
+          storage["woodmanager-v021:categories"];
+
+        const limitsRaw =
+          storage["woodmanager-v022:limits"] ??
+          storage["woodmanager-v021:limits"];
+
+        const versesRaw =
+          storage["woodmanager-v022:savedVerses"] ??
+          storage["woodmanager-v021:savedVerses"];
+
+        const transactions = safeParse(transactionsRaw, []);
+        const categories = safeParse(categoriesRaw, {});
+        const limits = safeParse(limitsRaw, {});
+        const verses = safeParse(versesRaw, []);
+
+        return {
+          transactions: Array.isArray(transactions) ? transactions.length : 0,
+          categories:
+            (Array.isArray(categories?.expense) ? categories.expense.length : 0) +
+            (Array.isArray(categories?.income) ? categories.income.length : 0),
+          limits: limits && typeof limits === "object" ? Object.keys(limits).length : 0,
+          verses: Array.isArray(verses) ? verses.length : 0,
+          keys: Object.keys(storage).length
+        };
+      }
+
+      function backupJson() {
+        return JSON.stringify(getRecoveryData(), null, 2);
+      }
+
+      function backupFilename() {
+        const date = new Date().toISOString().slice(0, 10);
+        return `arca-recuperacion-${date}.json`;
+      }
+
+      function refreshRecovery() {
+        const backup = getRecoveryData();
+        const counts = getCounts(backup);
+
+        $recovery("#recoverySummary").innerHTML = `
+          <div><span>Movimientos</span><strong>${counts.transactions}</strong></div>
+          <div><span>Categorías</span><strong>${counts.categories}</strong></div>
+          <div><span>Límites</span><strong>${counts.limits}</strong></div>
+          <div><span>Versículos</span><strong>${counts.verses}</strong></div>
+        `;
+
+        $recovery("#recoveryPreview").value = JSON.stringify(backup, null, 2);
+
+        if (counts.keys === 0) {
+          $recovery("#recoveryMessage").textContent =
+            "Esta instalación no encontró datos de Arca en su almacenamiento local.";
+        } else {
+          $recovery("#recoveryMessage").textContent =
+            "Datos encontrados. Guardá al menos una copia antes de intentar reparar la aplicación.";
+        }
+      }
+
+      function openRecovery() {
+        refreshRecovery();
+        $recovery("#recoveryOverlay").hidden = false;
+      }
+
+      function closeRecovery() {
+        $recovery("#recoveryOverlay").hidden = true;
+      }
+
+      async function copyBackup() {
+        const text = backupJson();
+
+        try {
+          await navigator.clipboard.writeText(text);
+          $recovery("#recoveryMessage").textContent =
+            "Copia copiada. Pegala en Notas, Archivos o donde quieras guardarla.";
+        } catch {
+          const preview = $recovery("#recoveryPreview");
+          preview.focus();
+          preview.select();
+          document.execCommand("copy");
+          $recovery("#recoveryMessage").textContent =
+            "Copia seleccionada/copieda. Guardala fuera de Arca.";
+        }
+      }
+
+      function downloadBackup() {
+        const blob = new Blob([backupJson()], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = backupFilename();
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+        $recovery("#recoveryMessage").textContent =
+          "Se intentó descargar la copia. Revisá la app Archivos/Descargas.";
+      }
+
+      async function shareBackup() {
+        const json = backupJson();
+        const file = new File([json], backupFilename(), {
+          type: "application/json"
+        });
+
+        try {
+          if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+            await navigator.share({
+              title: "Copia de seguridad de Arca",
+              text: "Copia de recuperación de los datos locales de Arca.",
+              files: [file]
+            });
+
+            $recovery("#recoveryMessage").textContent =
+              "Copia compartida. Confirmá que quedó guardada antes de continuar.";
+            return;
+          }
+        } catch (error) {
+          if (error?.name === "AbortError") return;
+        }
+
+        await copyBackup();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        $recovery("#openRecovery")?.addEventListener("click", openRecovery);
+        $recovery("#closeRecovery")?.addEventListener("click", closeRecovery);
+        $recovery("#copyRecovery")?.addEventListener("click", copyBackup);
+        $recovery("#downloadRecovery")?.addEventListener("click", downloadBackup);
+        $recovery("#shareRecovery")?.addEventListener("click", shareBackup);
+
+        $recovery("#recoveryOverlay")?.addEventListener("click", (event) => {
+          if (event.target.id === "recoveryOverlay") {
+            closeRecovery();
+          }
+        });
+      });
+    })();
+  </script>
+
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

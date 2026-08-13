@@ -1,7 +1,11 @@
-# Arca v0.2.5
+# Arca v0.2.6 - Recuperación
 
-- Corrige la W restante de la pantalla de bienvenida por A.
-- La bienvenida se muestra siempre al abrir Arca.
-- Al salir a otra app y volver, la bienvenida reaparece con el saldo actualizado.
-- Caché PWA actualizado a arca-v025.
-- Mantiene el logo A en los iconos 180, 192 y 512.
+Versión temporal de emergencia para rescatar datos locales antes de reparar una instalación que no permite ingresar.
+
+En la pantalla de bienvenida aparece `Recuperar mis datos`. La herramienta:
+- no borra ni modifica datos;
+- muestra cuántos movimientos, categorías, límites y versículos encuentra;
+- permite compartir, descargar o copiar una copia JSON;
+- funciona mediante un script independiente de `js/app.js`.
+
+No elimines la instalación problemática hasta verificar que la copia fue guardada fuera de Arca.
