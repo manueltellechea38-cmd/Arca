@@ -1,4 +1,4 @@
-const APP_VERSION = "0.3.1";
+const APP_VERSION = "0.3.2";
 const PREFIX = "woodmanager-v022:";
 const OLD_PREFIX = "woodmanager-v021:";
 
