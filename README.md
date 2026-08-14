@@ -1,11 +1,24 @@
-# Arca v0.2.6 - Recuperación
+# Arca v0.3.0
 
-Versión temporal de emergencia para rescatar datos locales antes de reparar una instalación que no permite ingresar.
+Nueva etapa de Arca enfocada en planificación financiera.
 
-En la pantalla de bienvenida aparece `Recuperar mis datos`. La herramienta:
-- no borra ni modifica datos;
-- muestra cuántos movimientos, categorías, límites y versículos encuentra;
-- permite compartir, descargar o copiar una copia JSON;
-- funciona mediante un script independiente de `js/app.js`.
+## Novedades
+- Metas de ahorro con foto opcional comprimida localmente.
+- Aportes a metas y cálculo aproximado de ahorro mensual según fecha objetivo.
+- Dinero disponible real descontando metas y pagos obligatorios pendientes.
+- Pagos fijos y recurrentes con frecuencia mensual, semanal o anual.
+- El último importe pagado pasa a ser la estimación del próximo vencimiento.
+- Próximos pagos ordenados por fecha.
+- Deudas y préstamos: "me deben" / "yo debo", vencimiento, pagos parciales y saldo pendiente.
+- Los pagos de deudas generan el movimiento correspondiente.
+- Privacidad aplicada también a metas, pagos y deudas.
+- Inspiración configurable: versículos, frases motivacionales o completamente oculta.
+- Frases motivacionales sin buscador.
+- Más opciones de color de acento y fondos de aplicación.
+- Recordatorio configurable de copia de seguridad.
+- Exportación/importación ampliada para incluir metas, recurrentes y deudas.
+- Se mantiene el modo de recuperación de emergencia.
+- Sin calendario financiero, por decisión de producto.
 
-No elimines la instalación problemática hasta verificar que la copia fue guardada fuera de Arca.
+## Datos
+La versión 0.3.0 continúa usando el almacenamiento local existente para conservar compatibilidad con los datos anteriores. La sincronización online se deja para una versión posterior.

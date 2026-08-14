@@ -1,7 +1,7 @@
 {
   "name": "Arca",
   "short_name": "Arca",
-  "description": "Finanzas personales y organización del taller.",
+  "description": "Finanzas personales, metas, pagos recurrentes y organización.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

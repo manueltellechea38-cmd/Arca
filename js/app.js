@@ -18,6 +18,410 @@ const VERSES = [
   { reference: "Filipenses 4:19", text: "Mi Dios, pues, suplirá todo lo que os falta conforme á sus riquezas en gloria en Cristo Jesús." }
 ];
 
+const MOTIVATIONAL_PHRASES = [
+  {
+    "reference": "Arca",
+    "text": "Avanzar poco sigue siendo avanzar.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Lo que controlás hoy te da libertad mañana.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Un gasto pensado vale más que una compra impulsiva.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu progreso no necesita ser perfecto para ser real.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Cada decisión pequeña construye un resultado grande.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Ahorrar también es elegir qué futuro querés.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Que tu dinero tenga un propósito antes de tener un destino.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Disciplina es recordar lo que querés cuando aparece una tentación.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Un buen plan convierte una meta lejana en pasos concretos.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Lo importante no es empezar con mucho, sino mantener el rumbo.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Registrar lo que hacés te permite mejorar lo que hacés.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El progreso financiero se construye con constancia.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "No necesitás gastar más para vivir mejor.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una meta clara hace más fácil decir que no a lo innecesario.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El dinero que no gastás por impulso puede trabajar para tus objetivos.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Ordenar tus finanzas también ordena tus decisiones.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Comparate con tu versión anterior, no con la vida de los demás.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El mejor momento para organizarte es antes de necesitar hacerlo.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Cada peso tiene más valor cuando sabés para qué lo querés.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una buena decisión repetida termina convirtiéndose en un hábito.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Los resultados grandes suelen empezar con acciones pequeñas.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Podés cambiar el rumbo sin tener que empezar de cero.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Lo que hoy parece lento mañana puede verse como constancia.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Elegir con calma también es una forma de ahorrar.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu objetivo merece más atención que una compra momentánea.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una semana ordenada puede cambiar un mes entero.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Primero claridad, después velocidad.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "No gastes para impresionar a personas que no pagan tus cuentas.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una meta escrita es más difícil de olvidar.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu tranquilidad también forma parte de tu patrimonio.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El presupuesto no limita tu vida; le pone dirección.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "No todo lo que podés comprar necesitás comprarlo.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Ser constante vale más que ser intenso durante dos días.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu futuro se beneficia de las decisiones que nadie ve.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Dejar pasar una compra también puede ser una victoria.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El hábito de revisar vale más que intentar recordar todo.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una meta grande se vuelve manejable cuando la dividís.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El control empieza cuando dejás de adivinar.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Cada mes es una nueva oportunidad de ajustar el rumbo.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Ahorrar no significa no disfrutar; significa elegir.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El dinero bien organizado compra tiempo y tranquilidad.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una decisión consciente hoy puede evitar una preocupación mañana.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El progreso se nota cuando mirás varios meses juntos.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "No necesitás hacerlo rápido; necesitás seguir haciéndolo.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Lo que medís, lo podés mejorar.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una compra puede esperar; una meta también necesita atención.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El equilibrio vale más que los extremos.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu plan puede cambiar sin que tu objetivo desaparezca.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Separar antes de gastar hace más fácil ahorrar.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Lo simple que funciona es mejor que lo complejo que abandonás.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El orden financiero se construye movimiento por movimiento.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu dinero debería ayudarte a vivir como querés, no controlarte.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Pensar antes de pagar es una habilidad que se entrena.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una deuda más pequeña también es progreso.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Reservar dinero es darle prioridad a tu yo del futuro.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "No subestimes veinte decisiones pequeñas bien tomadas.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Un límite sirve para cuidarte, no para castigarte.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una meta visible es una meta más presente.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Cuando sabés cuánto tenés, decidís con más tranquilidad.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Los hábitos sostenibles ganan a los planes perfectos.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Un mes difícil no borra todo lo que ya avanzaste.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Empezá con lo que tenés y mejoralo sobre la marcha.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Cada pago pendiente que resolvés libera espacio mental.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu progreso merece ser registrado.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El objetivo no es gastar cero; es gastar con intención.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Pensar en el mañana no significa olvidarte de hoy.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Un buen sistema hace fácil repetir una buena decisión.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Guardá primero para lo importante y decidí después sobre el resto.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu saldo cuenta una historia; vos decidís cómo sigue.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Los números no juzgan: te muestran dónde estás.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una decisión simple puede cambiar el cierre de tu mes.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El ahorro crece cuando deja de depender de lo que sobra.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Priorizar también significa renunciar a algunas cosas.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu meta está más cerca cada vez que elegís conscientemente.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "El dinero es una herramienta; el plan decide cómo usarla.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Lo que hoy reservás puede convertirse en algo que realmente querés.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Organizarte no te quita libertad; te da opciones.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Las metas se construyen antes de alcanzarse.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Una compra menos puede ser un paso más.",
+    "kind": "motivation"
+  },
+  {
+    "reference": "Arca",
+    "text": "Tu mejor presupuesto es el que realmente podés mantener.",
+    "kind": "motivation"
+  }
+];
+
+
 const DEFAULT_CATEGORIES = {
   expense: ["Comida", "Salidas", "Transporte", "Combustible", "Servicios", "Compras personales", "Materiales", "Herramientas", "Otros"],
   income: ["Venta de productos", "Trabajos por encargo", "Cobros pendientes", "Otros ingresos"]
@@ -29,9 +433,13 @@ const DEFAULT_SETTINGS = {
   hourlyRate: 250,
   theme: "system",
   accent: "green",
+  background: "default",
   showWelcome: true,
   showSeconds: false,
   verseInterval: 30,
+  inspirationMode: "bible",
+  backupReminderDays: 14,
+  lastBackupAt: null,
   privacyOnStart: false,
   dashboardCards: [
     { id: "balance", visible: true },
@@ -45,7 +453,10 @@ const state = {
   limits: normalizeLimits(loadMigrated("limits", {})),
   categories: normalizeCategories(loadMigrated("categories", DEFAULT_CATEGORIES)),
   savedVerses: loadNew("savedVerses", []),
-  settings: normalizeSettings(loadMigrated("settings", {}))
+  settings: normalizeSettings(loadMigrated("settings", {})),
+  goals: loadNew("goals", []),
+  recurring: loadNew("recurring", []),
+  debts: loadNew("debts", [])
 };
 
 let currentVerse = null;
@@ -299,6 +710,7 @@ function initNavigation() {
 
     if (route === "home") renderHome();
     if (route === "finance") renderFinance();
+    if (route === "goals") renderGoals();
     if (route === "saved") renderSaved();
     if (route === "settings") renderSettings();
 
@@ -398,22 +810,59 @@ function renderHome() {
   document.body.classList.toggle("money-private", privacyHidden);
   $("#privacyIcon").textContent = privacyHidden ? "○" : "●";
   updateVerse(true);
+  renderSmartHome();
 }
 
-function verseForNow() {
+function inspirationCollection() {
+  if (state.settings.inspirationMode === "motivation") {
+    return MOTIVATIONAL_PHRASES;
+  }
+
+  return VERSES.map((item) => ({ ...item, kind: "bible" }));
+}
+
+function inspirationForNow() {
+  const collection = inspirationCollection();
+  if (!collection.length) return null;
+
   const intervalMinutes = Math.max(1, Number(state.settings.verseInterval || 30));
   const slot = Math.floor(Date.now() / (intervalMinutes * 60_000));
-  return VERSES[Math.abs(slot) % VERSES.length];
+
+  // El multiplicador primo recorre toda la colección antes de repetir.
+  const index = (slot * 17 + 11) % collection.length;
+  return collection[index];
 }
 
 function updateVerse(force = false) {
-  const verse = verseForNow();
-  const changed = !currentVerse || currentVerse.reference !== verse.reference || currentVerse.text !== verse.text;
+  const card = $("#inspirationCard");
+  if (!card) return;
+
+  if (state.settings.inspirationMode === "off") {
+    card.hidden = true;
+    return;
+  }
+
+  card.hidden = false;
+
+  const item = inspirationForNow();
+  if (!item) return;
+
+  const changed = !currentVerse ||
+    currentVerse.reference !== item.reference ||
+    currentVerse.text !== item.text ||
+    currentVerse.kind !== item.kind;
 
   if (force || changed) {
-    currentVerse = verse;
-    $("#verseText").textContent = verse.text;
-    $("#verseReference").textContent = `${verse.reference} · Reina-Valera 1909`;
+    currentVerse = item;
+    $("#verseText").textContent = item.text;
+
+    if (item.kind === "motivation") {
+      $("#inspirationLabel").textContent = "Frase motivacional";
+      $("#verseReference").textContent = "Arca";
+    } else {
+      $("#inspirationLabel").textContent = "Versículo";
+      $("#verseReference").textContent = `${item.reference} · Reina-Valera 1909`;
+    }
   }
 
   const minutes = Math.max(1, Number(state.settings.verseInterval || 30));
@@ -441,33 +890,38 @@ async function copyText(text) {
 function initVerseActions() {
   $("#copyVerse").addEventListener("click", () => {
     if (!currentVerse) return;
-    copyText(`${currentVerse.text}\n${currentVerse.reference}`);
+    const suffix = currentVerse.kind === "motivation" ? "" : `
+${currentVerse.reference}`;
+    copyText(`${currentVerse.text}${suffix}`);
   });
 
   $("#saveVerse").addEventListener("click", () => {
     if (!currentVerse) return;
 
     const exists = state.savedVerses.some((item) =>
-      item.originalReference === currentVerse.reference && item.text === currentVerse.text
+      item.text === currentVerse.text &&
+      item.reference === currentVerse.reference &&
+      (item.kind || "bible") === (currentVerse.kind || "bible")
     );
 
     if (exists) {
-      toast("Ese versículo ya está guardado.");
+      toast("Ya está guardado.");
       return;
     }
 
     state.savedVerses.unshift({
-      id: uid("verse"),
+      id: uid("saved"),
       originalReference: currentVerse.reference,
       reference: currentVerse.reference,
       text: currentVerse.text,
       note: "",
       pinned: false,
+      kind: currentVerse.kind || "bible",
       savedAt: new Date().toISOString()
     });
 
     save("savedVerses", state.savedVerses);
-    toast("Versículo guardado.");
+    toast("Guardado.");
   });
 }
 
@@ -611,6 +1065,9 @@ function renderFinance() {
   renderLimits();
   renderCategories();
   renderHistory();
+  renderRecurring();
+  renderUpcomingPayments();
+  renderDebts();
 }
 
 function renderOpeningBalance() {
@@ -824,6 +1281,7 @@ function openEditor(title, fieldsHtml, saveHandler, setupHandler) {
       renderFinance();
       renderHome();
       renderSaved();
+  renderGoals();
     }
   };
 
@@ -961,6 +1419,637 @@ function openCategoryEditor(type, oldName) {
   );
 }
 
+
+function daysBetween(dateA, dateB) {
+  const oneDay = 86_400_000;
+  const a = new Date(dateA);
+  const b = new Date(dateB);
+  return Math.ceil((b - a) / oneDay);
+}
+
+function recurringPeriodKey(item, date = new Date()) {
+  const d = new Date(date);
+  if (item.frequency === "weekly") {
+    const start = new Date(d.getFullYear(), 0, 1);
+    const week = Math.ceil((((d - start) / 86_400_000) + start.getDay() + 1) / 7);
+    return `${d.getFullYear()}-W${week}`;
+  }
+
+  if (item.frequency === "yearly") {
+    return String(d.getFullYear());
+  }
+
+  return monthKey(d);
+}
+
+function nextRecurringDate(item) {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  let next = new Date(`${item.nextDue}T12:00:00`);
+  if (Number.isNaN(next.getTime())) return now;
+
+  // Un pago vencido permanece visible hasta que el usuario lo marque como pagado.
+  // Solo avanzamos cuando ese período ya fue confirmado como pagado.
+  while (item.lastPaidPeriod === recurringPeriodKey(item, next)) {
+    if (item.frequency === "weekly") {
+      next.setDate(next.getDate() + 7);
+    } else if (item.frequency === "yearly") {
+      next.setFullYear(next.getFullYear() + 1);
+    } else {
+      next.setMonth(next.getMonth() + 1);
+    }
+  }
+
+  return next;
+}
+
+function estimatedRecurringAmount(item) {
+  return Number(item.lastAmount || item.amount || 0);
+}
+
+function pendingMandatoryAmount() {
+  const currentMonth = currentMonthKey();
+
+  return state.recurring
+    .filter((item) => item.active !== false && item.mandatory)
+    .reduce((sum, item) => {
+      const next = nextRecurringDate(item);
+      if (monthKey(next) !== currentMonth) return sum;
+      return sum + estimatedRecurringAmount(item);
+    }, 0);
+}
+
+function goalsReservedAmount() {
+  return state.goals.reduce((sum, goal) => sum + Number(goal.current || 0), 0);
+}
+
+function realAvailableBalance() {
+  return currentBalance() - pendingMandatoryAmount() - goalsReservedAmount();
+}
+
+function renderSmartHome() {
+  const available = realAvailableBalance();
+  const mandatory = pendingMandatoryAmount();
+  const reserved = goalsReservedAmount();
+
+  $("#realAvailable").textContent = privacyHidden ? "••••••" : formatMoney(available);
+  $("#realAvailableDetail").textContent =
+    `Pagos obligatorios: ${privacyHidden ? "••••" : formatMoney(mandatory)} · Metas: ${privacyHidden ? "••••" : formatMoney(reserved)}`;
+
+  const upcoming = state.recurring
+    .filter((item) => item.active !== false)
+    .map((item) => ({ item, date: nextRecurringDate(item) }))
+    .sort((a, b) => a.date - b.date)[0];
+
+  if (upcoming) {
+    $("#nextPaymentName").textContent = upcoming.item.name;
+    const days = daysBetween(new Date(), upcoming.date);
+    $("#nextPaymentDetail").textContent =
+      `${days <= 0 ? "Vence hoy" : `En ${days} día${days === 1 ? "" : "s"}`} · ${privacyHidden ? "••••" : formatMoney(estimatedRecurringAmount(upcoming.item))}`;
+  } else {
+    $("#nextPaymentName").textContent = "Sin pagos próximos";
+    $("#nextPaymentDetail").textContent = "Podés agregar gastos recurrentes desde Finanzas.";
+  }
+
+  const mainGoal = [...state.goals]
+    .filter((goal) => Number(goal.current || 0) < Number(goal.target || 0))
+    .sort((a, b) => Number(b.current || 0) / Math.max(1, Number(b.target || 0)) - Number(a.current || 0) / Math.max(1, Number(a.target || 0)))[0];
+
+  const preview = $("#homeGoalPreview");
+  if (!mainGoal) {
+    preview.hidden = true;
+  } else {
+    const percentage = Math.min(100, Math.round((Number(mainGoal.current || 0) / Math.max(1, Number(mainGoal.target || 0))) * 100));
+    preview.hidden = false;
+    preview.innerHTML = `
+      <div class="goal-preview-home">
+        ${mainGoal.photo ? `<img src="${mainGoal.photo}" alt="">` : ""}
+        <div>
+          <p class="eyebrow">Meta principal</p>
+          <h3>${escapeHtml(mainGoal.name)}</h3>
+          <strong data-money>${privacyHidden ? "••••••" : `${formatMoney(mainGoal.current)} / ${formatMoney(mainGoal.target)}`}</strong>
+          <div class="progress"><span style="width:${percentage}%"></span></div>
+          <small>${percentage}% completado</small>
+        </div>
+      </div>
+    `;
+  }
+
+  renderBackupReminder();
+}
+
+async function compressGoalPhoto(file) {
+  if (!file) return "";
+
+  const bitmap = await createImageBitmap(file);
+  const maxSize = 900;
+  const scale = Math.min(1, maxSize / Math.max(bitmap.width, bitmap.height));
+  const width = Math.round(bitmap.width * scale);
+  const height = Math.round(bitmap.height * scale);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+
+  canvas.getContext("2d").drawImage(bitmap, 0, 0, width, height);
+  bitmap.close?.();
+
+  return canvas.toDataURL("image/jpeg", 0.78);
+}
+
+function initGoals() {
+  $("#goalForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = fieldValue(event.currentTarget, "goal-name").trim();
+    const target = parseAmount(fieldValue(event.currentTarget, "goal-target"));
+    const current = parseAmount(fieldValue(event.currentTarget, "goal-current")) || 0;
+    const file = $("#goalPhoto").files?.[0];
+
+    if (!name || !Number.isFinite(target) || target <= 0) {
+      toast("Revisá el nombre y el importe de la meta.");
+      return;
+    }
+
+    let photo = "";
+    if (file) {
+      try {
+        photo = await compressGoalPhoto(file);
+      } catch {
+        toast("No se pudo procesar la foto.");
+        return;
+      }
+    }
+
+    state.goals.unshift({
+      id: uid("goal"),
+      name,
+      target,
+      current: Math.max(0, current),
+      targetDate: $("#goalDate").value || "",
+      photo,
+      createdAt: new Date().toISOString()
+    });
+
+    save("goals", state.goals);
+    event.currentTarget.reset();
+    randomizePrivateFieldNames(event.currentTarget);
+    renderGoals();
+    renderHome();
+    toast("Meta creada.");
+  });
+
+  $("#goalsList").addEventListener("click", handleGoalAction);
+}
+
+function renderGoals() {
+  const container = $("#goalsList");
+
+  if (!state.goals.length) {
+    container.innerHTML = `<article class="liquid-card empty-state">Todavía no creaste metas de ahorro.</article>`;
+    return;
+  }
+
+  container.innerHTML = state.goals.map((goal) => {
+    const current = Number(goal.current || 0);
+    const target = Number(goal.target || 0);
+    const percentage = Math.min(100, Math.round((current / Math.max(1, target)) * 100));
+    const remaining = Math.max(0, target - current);
+    let pace = "";
+
+    if (goal.targetDate) {
+      const days = Math.max(1, daysBetween(new Date(), new Date(`${goal.targetDate}T12:00:00`)));
+      const months = Math.max(1, days / 30.44);
+      pace = ` · ${privacyHidden ? "••••" : formatMoney(remaining / months)} por mes aprox.`;
+    }
+
+    return `
+      <article class="liquid-card goal-card">
+        ${goal.photo ? `<img class="goal-photo" src="${goal.photo}" alt="${escapeHtml(goal.name)}">` : `<div class="goal-photo goal-photo--empty">◎</div>`}
+        <div class="goal-card__body">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">Meta</p>
+              <h3>${escapeHtml(goal.name)}</h3>
+            </div>
+            <strong>${percentage}%</strong>
+          </div>
+
+          <strong class="goal-amount" data-money>${privacyHidden ? "••••••" : `${formatMoney(current)} / ${formatMoney(target)}`}</strong>
+          <div class="progress"><span style="width:${percentage}%"></span></div>
+          <small>Faltan ${privacyHidden ? "••••" : formatMoney(remaining)}${pace}</small>
+
+          <div class="goal-actions">
+            <button class="glass-primary" data-goal-add="${goal.id}">Agregar ahorro</button>
+            <button class="mini-control" data-goal-edit="${goal.id}">Editar</button>
+            <button class="mini-control danger" data-goal-delete="${goal.id}">Borrar</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function handleGoalAction(event) {
+  const add = event.target.closest("[data-goal-add]");
+  const edit = event.target.closest("[data-goal-edit]");
+  const remove = event.target.closest("[data-goal-delete]");
+
+  if (add) {
+    const goal = state.goals.find((item) => item.id === add.dataset.goalAdd);
+    if (!goal) return;
+
+    const raw = prompt(`¿Cuánto querés agregar a "${goal.name}"?`, "0,00");
+    if (raw === null) return;
+
+    const amount = parseAmount(raw);
+    if (!Number.isFinite(amount) || amount <= 0) {
+      toast("Importe inválido.");
+      return;
+    }
+
+    goal.current = Number(goal.current || 0) + amount;
+    save("goals", state.goals);
+    renderGoals();
+    renderHome();
+    toast("Ahorro agregado.");
+  }
+
+  if (edit) {
+    const goal = state.goals.find((item) => item.id === edit.dataset.goalEdit);
+    if (!goal) return;
+
+    openEditor(
+      "Editar meta",
+      `
+        <input type="hidden" name="id" value="${goal.id}">
+        <label>Nombre<input name="name" value="${escapeHtml(goal.name)}" required></label>
+        <label>Objetivo<input name="target" type="text" inputmode="decimal" value="${formatInputMoney(goal.target)}" required></label>
+        <label>Ahorrado<input name="current" type="text" inputmode="decimal" value="${formatInputMoney(goal.current)}" required></label>
+        <label>Fecha objetivo<input name="date" type="date" value="${escapeHtml(goal.targetDate || "")}"></label>
+      `,
+      (form) => {
+        const targetGoal = state.goals.find((item) => item.id === form.get("id"));
+        const target = parseAmount(form.get("target"));
+        const current = parseAmount(form.get("current"));
+
+        if (!targetGoal || !Number.isFinite(target) || target <= 0 || !Number.isFinite(current)) {
+          toast("Revisá los importes.");
+          return false;
+        }
+
+        targetGoal.name = String(form.get("name") || "").trim();
+        targetGoal.target = target;
+        targetGoal.current = Math.max(0, current);
+        targetGoal.targetDate = String(form.get("date") || "");
+
+        save("goals", state.goals);
+        renderGoals();
+        toast("Meta actualizada.");
+      }
+    );
+  }
+
+  if (remove && confirm("¿Borrar esta meta?")) {
+    state.goals = state.goals.filter((item) => item.id !== remove.dataset.goalDelete);
+    save("goals", state.goals);
+    renderGoals();
+    renderHome();
+    toast("Meta borrada.");
+  }
+}
+
+function initRecurring() {
+  $("#recurringDueDate").value = todayInput();
+
+  $("#recurringForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = fieldValue(event.currentTarget, "recurring-name").trim();
+    const amount = parseAmount(fieldValue(event.currentTarget, "recurring-amount"));
+
+    if (!name || !Number.isFinite(amount) || amount <= 0) {
+      toast("Revisá el nombre y el importe.");
+      return;
+    }
+
+    state.recurring.unshift({
+      id: uid("recurring"),
+      name,
+      category: $("#recurringCategory").value,
+      amount,
+      lastAmount: amount,
+      nextDue: $("#recurringDueDate").value,
+      frequency: $("#recurringFrequency").value,
+      mandatory: $("#recurringMandatory").checked,
+      active: true,
+      lastPaidPeriod: null,
+      createdAt: new Date().toISOString()
+    });
+
+    save("recurring", state.recurring);
+    event.currentTarget.reset();
+    $("#recurringDueDate").value = todayInput();
+    $("#recurringMandatory").checked = true;
+    randomizePrivateFieldNames(event.currentTarget);
+    renderRecurring();
+    renderUpcomingPayments();
+    renderHome();
+    toast("Pago recurrente agregado.");
+  });
+
+  $("#recurringList").addEventListener("click", handleRecurringAction);
+}
+
+function renderRecurring() {
+  $("#recurringCategory").innerHTML = state.categories.expense
+    .map((category) => `<option>${escapeHtml(category)}</option>`)
+    .join("");
+
+  const container = $("#recurringList");
+
+  if (!state.recurring.length) {
+    container.innerHTML = `<p class="empty-state">Todavía no agregaste pagos recurrentes.</p>`;
+    return;
+  }
+
+  container.innerHTML = state.recurring.map((item) => {
+    const next = nextRecurringDate(item);
+    const amount = estimatedRecurringAmount(item);
+
+    return `
+      <article class="list-row">
+        <div class="list-row__main">
+          <strong>${escapeHtml(item.name)} ${item.mandatory ? '<span class="status-pill">Obligatorio</span>' : ""}</strong>
+          <small>${new Intl.DateTimeFormat("es-UY", { day: "2-digit", month: "short", year: "numeric" }).format(next)} · ${item.frequency === "weekly" ? "semanal" : item.frequency === "yearly" ? "anual" : "mensual"} · estimado ${privacyHidden ? "••••" : formatMoney(amount)}</small>
+        </div>
+        <div class="list-actions">
+          <button class="mini-control" data-recurring-pay="${item.id}">Marcar pagado</button>
+          <button class="mini-control" data-recurring-edit="${item.id}">Editar</button>
+          <button class="mini-control danger" data-recurring-delete="${item.id}">Borrar</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderUpcomingPayments() {
+  const items = state.recurring
+    .filter((item) => item.active !== false)
+    .map((item) => ({ item, date: nextRecurringDate(item) }))
+    .sort((a, b) => a.date - b.date)
+    .slice(0, 10);
+
+  $("#upcomingPayments").innerHTML = items.length
+    ? items.map(({ item, date }) => {
+        const days = daysBetween(new Date(), date);
+        return `
+          <article class="list-row">
+            <div class="list-row__main">
+              <strong>${escapeHtml(item.name)}</strong>
+              <small>${days <= 0 ? "Hoy" : `En ${days} día${days === 1 ? "" : "s"}`} · ${escapeHtml(item.category)}</small>
+            </div>
+            <strong data-money>${privacyHidden ? "••••" : formatMoney(estimatedRecurringAmount(item))}</strong>
+          </article>
+        `;
+      }).join("")
+    : `<p class="empty-state">No hay pagos próximos.</p>`;
+}
+
+function handleRecurringAction(event) {
+  const pay = event.target.closest("[data-recurring-pay]");
+  const edit = event.target.closest("[data-recurring-edit]");
+  const remove = event.target.closest("[data-recurring-delete]");
+
+  if (pay) {
+    const item = state.recurring.find((entry) => entry.id === pay.dataset.recurringPay);
+    if (!item) return;
+
+    const raw = prompt(`Importe pagado de ${item.name}:`, formatInputMoney(estimatedRecurringAmount(item)));
+    if (raw === null) return;
+
+    const amount = parseAmount(raw);
+    if (!Number.isFinite(amount) || amount <= 0) {
+      toast("Importe inválido.");
+      return;
+    }
+
+    const dueDate = nextRecurringDate(item);
+
+    state.transactions.unshift({
+      id: uid("tx"),
+      type: "expense",
+      category: item.category,
+      amount,
+      note: item.name,
+      date: new Date().toISOString()
+    });
+
+    item.lastAmount = amount;
+    item.amount = amount;
+    item.lastPaidPeriod = recurringPeriodKey(item, dueDate);
+
+    const next = new Date(dueDate);
+    if (item.frequency === "weekly") next.setDate(next.getDate() + 7);
+    else if (item.frequency === "yearly") next.setFullYear(next.getFullYear() + 1);
+    else next.setMonth(next.getMonth() + 1);
+
+    item.nextDue = new Date(next.getTime() - next.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
+
+    save("transactions", state.transactions);
+    save("recurring", state.recurring);
+
+    renderMonths();
+    renderFinance();
+    renderHome();
+    toast("Pago registrado y próximo importe actualizado.");
+  }
+
+  if (edit) {
+    const item = state.recurring.find((entry) => entry.id === edit.dataset.recurringEdit);
+    if (!item) return;
+
+    openEditor(
+      "Editar pago recurrente",
+      `
+        <input type="hidden" name="id" value="${item.id}">
+        <label>Nombre<input name="name" value="${escapeHtml(item.name)}" required></label>
+        <label>Importe estimado<input name="amount" type="text" inputmode="decimal" value="${formatInputMoney(estimatedRecurringAmount(item))}" required></label>
+        <label>Próximo vencimiento<input name="nextDue" type="date" value="${escapeHtml(item.nextDue)}" required></label>
+        <label>Frecuencia
+          <select name="frequency">
+            <option value="monthly" ${item.frequency === "monthly" ? "selected" : ""}>Mensual</option>
+            <option value="weekly" ${item.frequency === "weekly" ? "selected" : ""}>Semanal</option>
+            <option value="yearly" ${item.frequency === "yearly" ? "selected" : ""}>Anual</option>
+          </select>
+        </label>
+        <label class="check"><input name="mandatory" type="checkbox" ${item.mandatory ? "checked" : ""}> Gasto obligatorio</label>
+      `,
+      (form) => {
+        const target = state.recurring.find((entry) => entry.id === form.get("id"));
+        const amount = parseAmount(form.get("amount"));
+        if (!target || !Number.isFinite(amount) || amount <= 0) return false;
+
+        target.name = String(form.get("name") || "").trim();
+        target.amount = amount;
+        target.lastAmount = amount;
+        target.nextDue = String(form.get("nextDue"));
+        target.frequency = String(form.get("frequency"));
+        target.mandatory = form.get("mandatory") === "on";
+
+        save("recurring", state.recurring);
+        renderRecurring();
+        renderUpcomingPayments();
+        toast("Pago recurrente actualizado.");
+      }
+    );
+  }
+
+  if (remove && confirm("¿Borrar este pago recurrente?")) {
+    state.recurring = state.recurring.filter((item) => item.id !== remove.dataset.recurringDelete);
+    save("recurring", state.recurring);
+    renderRecurring();
+    renderUpcomingPayments();
+    renderHome();
+    toast("Pago recurrente borrado.");
+  }
+}
+
+function initDebts() {
+  $("#debtForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const person = fieldValue(event.currentTarget, "debt-person").trim();
+    const amount = parseAmount(fieldValue(event.currentTarget, "debt-amount"));
+
+    if (!person || !Number.isFinite(amount) || amount <= 0) {
+      toast("Revisá la persona y el importe.");
+      return;
+    }
+
+    state.debts.unshift({
+      id: uid("debt"),
+      type: $("#debtType").value,
+      person,
+      amount,
+      paid: 0,
+      dueDate: $("#debtDueDate").value || "",
+      note: fieldValue(event.currentTarget, "debt-note").trim(),
+      createdAt: new Date().toISOString()
+    });
+
+    save("debts", state.debts);
+    event.currentTarget.reset();
+    randomizePrivateFieldNames(event.currentTarget);
+    renderDebts();
+    toast("Deuda guardada.");
+  });
+
+  $("#debtList").addEventListener("click", handleDebtAction);
+}
+
+function renderDebts() {
+  const owedToMe = state.debts
+    .filter((item) => item.type === "owedToMe")
+    .reduce((sum, item) => sum + Math.max(0, Number(item.amount) - Number(item.paid || 0)), 0);
+
+  const iOwe = state.debts
+    .filter((item) => item.type === "iOwe")
+    .reduce((sum, item) => sum + Math.max(0, Number(item.amount) - Number(item.paid || 0)), 0);
+
+  $("#debtSummary").innerHTML = `
+    <div><span>Me deben</span><strong data-money>${privacyHidden ? "••••" : formatMoney(owedToMe)}</strong></div>
+    <div><span>Yo debo</span><strong data-money>${privacyHidden ? "••••" : formatMoney(iOwe)}</strong></div>
+    <div><span>Registros</span><strong>${state.debts.length}</strong></div>
+  `;
+
+  $("#debtList").innerHTML = state.debts.length
+    ? state.debts.map((item) => {
+        const remaining = Math.max(0, Number(item.amount) - Number(item.paid || 0));
+        return `
+          <article class="list-row ${remaining === 0 ? "settled" : ""}">
+            <div class="list-row__main">
+              <strong>${escapeHtml(item.person)} · ${item.type === "owedToMe" ? "Me deben" : "Yo debo"}</strong>
+              <small>${escapeHtml(item.note || "Sin descripción")}${item.dueDate ? ` · vence ${escapeHtml(item.dueDate)}` : ""}</small>
+            </div>
+            <div class="list-actions">
+              <strong data-money>${privacyHidden ? "••••" : formatMoney(remaining)}</strong>
+              ${remaining > 0 ? `<button class="mini-control" data-debt-pay="${item.id}">Registrar pago</button>` : '<span class="status-pill">Saldado</span>'}
+              <button class="mini-control danger" data-debt-delete="${item.id}">Borrar</button>
+            </div>
+          </article>
+        `;
+      }).join("")
+    : `<p class="empty-state">No hay deudas ni préstamos registrados.</p>`;
+}
+
+function handleDebtAction(event) {
+  const pay = event.target.closest("[data-debt-pay]");
+  const remove = event.target.closest("[data-debt-delete]");
+
+  if (pay) {
+    const debt = state.debts.find((item) => item.id === pay.dataset.debtPay);
+    if (!debt) return;
+
+    const remaining = Math.max(0, Number(debt.amount) - Number(debt.paid || 0));
+    const raw = prompt("Importe del pago:", formatInputMoney(remaining));
+    if (raw === null) return;
+
+    const amount = parseAmount(raw);
+    if (!Number.isFinite(amount) || amount <= 0 || amount > remaining) {
+      toast("Importe inválido.");
+      return;
+    }
+
+    debt.paid = Number(debt.paid || 0) + amount;
+
+    state.transactions.unshift({
+      id: uid("tx"),
+      type: debt.type === "owedToMe" ? "income" : "expense",
+      category: debt.type === "owedToMe"
+        ? (state.categories.income.includes("Cobros pendientes") ? "Cobros pendientes" : state.categories.income[0])
+        : (state.categories.expense.includes("Otros") ? "Otros" : state.categories.expense[0]),
+      amount,
+      note: debt.type === "owedToMe" ? `Cobro deuda - ${debt.person}` : `Pago deuda - ${debt.person}`,
+      date: new Date().toISOString()
+    });
+
+    save("debts", state.debts);
+    save("transactions", state.transactions);
+    renderMonths();
+    renderFinance();
+    renderHome();
+    toast("Pago registrado.");
+  }
+
+  if (remove && confirm("¿Borrar este registro de deuda?")) {
+    state.debts = state.debts.filter((item) => item.id !== remove.dataset.debtDelete);
+    save("debts", state.debts);
+    renderDebts();
+    toast("Registro borrado.");
+  }
+}
+
+function renderBackupReminder() {
+  const days = Number(state.settings.backupReminderDays || 0);
+  const status = $("#backupStatus");
+
+  if (status) {
+    if (!days) {
+      status.textContent = "Recordatorio desactivado.";
+    } else if (!state.settings.lastBackupAt) {
+      status.textContent = "Todavía no registramos una copia de seguridad.";
+    } else {
+      const elapsed = daysBetween(new Date(state.settings.lastBackupAt), new Date());
+      status.textContent = elapsed >= days
+        ? `Pasaron ${elapsed} días desde la última copia. Conviene exportar una.`
+        : `Última copia hace ${elapsed} día${elapsed === 1 ? "" : "s"}.`;
+    }
+  }
+}
+
+
 function renderSaved() {
   const container = $("#savedList");
   const items = [...state.savedVerses].sort((a, b) => {
@@ -969,27 +2058,31 @@ function renderSaved() {
   });
 
   if (!items.length) {
-    container.innerHTML = `<p class="empty-state">Todavía no guardaste ningún versículo.</p>`;
+    container.innerHTML = `<p class="empty-state">Todavía no guardaste ninguna inspiración.</p>`;
     return;
   }
 
-  container.innerHTML = items.map((item) => `
-    <article class="saved-verse ${item.pinned ? "is-pinned" : ""}">
-      <blockquote>${escapeHtml(item.text)}</blockquote>
-      <div class="saved-verse__bottom">
-        <div>
-          <strong>${escapeHtml(item.reference)}</strong>
-          <small>${item.note ? escapeHtml(item.note) : "Reina-Valera 1909"}</small>
+  container.innerHTML = items.map((item) => {
+    const kind = item.kind || "bible";
+    return `
+      <article class="saved-verse ${item.pinned ? "is-pinned" : ""}">
+        <span class="status-pill">${kind === "motivation" ? "Frase" : "Versículo"}</span>
+        <blockquote>${escapeHtml(item.text)}</blockquote>
+        <div class="saved-verse__bottom">
+          <div>
+            <strong>${kind === "motivation" ? "Arca" : escapeHtml(item.reference)}</strong>
+            <small>${item.note ? escapeHtml(item.note) : kind === "motivation" ? "Frase motivacional" : "Reina-Valera 1909"}</small>
+          </div>
+          <div class="list-actions">
+            <button class="mini-control" data-saved-copy="${item.id}">Copiar</button>
+            <button class="mini-control" data-saved-edit="${item.id}">Editar</button>
+            <button class="mini-control" data-saved-pin="${item.id}">${item.pinned ? "Desanclar" : "Anclar"}</button>
+            <button class="mini-control danger" data-saved-delete="${item.id}">Borrar</button>
+          </div>
         </div>
-        <div class="list-actions">
-          <button class="mini-control" data-saved-copy="${item.id}">Copiar</button>
-          <button class="mini-control" data-saved-edit="${item.id}">Editar</button>
-          <button class="mini-control" data-saved-pin="${item.id}">${item.pinned ? "Desanclar" : "Anclar"}</button>
-          <button class="mini-control danger" data-saved-delete="${item.id}">Borrar</button>
-        </div>
-      </div>
-    </article>
-  `).join("");
+      </article>
+    `;
+  }).join("");
 }
 
 function initSaved() {
@@ -1001,7 +2094,7 @@ function initSaved() {
 
     if (copyButton) {
       const item = state.savedVerses.find((verse) => verse.id === copyButton.dataset.savedCopy);
-      if (item) copyText(`${item.text}\n${item.reference}`);
+      if (item) copyText((item.kind || "bible") === "motivation" ? item.text : `${item.text}\n${item.reference}`);
     }
 
     if (editButton) {
@@ -1061,6 +2154,9 @@ function openSavedVerseEditor(id) {
 function renderSettings() {
   $("#themePreference").value = state.settings.theme;
   $("#accentPreference").value = state.settings.accent;
+  $("#backgroundPreference").value = state.settings.background || "default";
+  $("#inspirationMode").value = state.settings.inspirationMode || "bible";
+  $("#backupReminder").value = String(state.settings.backupReminderDays || 0);
   $("#welcomePreference").checked = Boolean(state.settings.showWelcome);
   $("#secondsPreference").checked = Boolean(state.settings.showSeconds);
   $("#verseInterval").value = String(state.settings.verseInterval);
@@ -1072,6 +2168,9 @@ function initSettings() {
   const update = () => {
     state.settings.theme = $("#themePreference").value;
     state.settings.accent = $("#accentPreference").value;
+    state.settings.background = $("#backgroundPreference").value;
+    state.settings.inspirationMode = $("#inspirationMode").value;
+    state.settings.backupReminderDays = Number($("#backupReminder").value);
     state.settings.showWelcome = $("#welcomePreference").checked;
     state.settings.showSeconds = $("#secondsPreference").checked;
     state.settings.verseInterval = Number($("#verseInterval").value);
@@ -1082,7 +2181,7 @@ function initSettings() {
     renderHome();
   };
 
-  ["themePreference", "accentPreference", "welcomePreference", "secondsPreference", "verseInterval", "privacyPreference"]
+  ["themePreference", "accentPreference", "backgroundPreference", "inspirationMode", "welcomePreference", "secondsPreference", "verseInterval", "privacyPreference", "backupReminder"]
     .forEach((id) => {
       $("#" + id).addEventListener("change", update);
     });
@@ -1111,6 +2210,7 @@ function initSettings() {
 function applyAppearance() {
   document.documentElement.dataset.theme = state.settings.theme;
   document.documentElement.dataset.accent = state.settings.accent;
+  document.documentElement.dataset.background = state.settings.background || "default";
 }
 
 function renderDashboardCustomizer() {
@@ -1168,9 +2268,17 @@ function exportBackup() {
       limits: state.limits,
       categories: state.categories,
       savedVerses: state.savedVerses,
+      goals: state.goals,
+      recurring: state.recurring,
+      debts: state.debts,
       settings: state.settings
     }
   };
+
+  state.settings.lastBackupAt = new Date().toISOString();
+  save("settings", state.settings);
+  payload.data.settings = state.settings;
+  renderBackupReminder();
 
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -1200,12 +2308,18 @@ function importBackup(event) {
       state.limits = normalizeLimits(data.limits || {});
       state.categories = normalizeCategories(data.categories);
       state.savedVerses = Array.isArray(data.savedVerses) ? data.savedVerses : [];
+      state.goals = Array.isArray(data.goals) ? data.goals : [];
+      state.recurring = Array.isArray(data.recurring) ? data.recurring : [];
+      state.debts = Array.isArray(data.debts) ? data.debts : [];
       state.settings = normalizeSettings(data.settings);
 
       save("transactions", state.transactions);
       save("limits", state.limits);
       save("categories", state.categories);
       save("savedVerses", state.savedVerses);
+      save("goals", state.goals);
+      save("recurring", state.recurring);
+      save("debts", state.debts);
       save("settings", state.settings);
 
       toast("Datos importados.");
@@ -1231,6 +2345,9 @@ function init() {
   initPrivacy();
   initFinance();
   initSaved();
+  initGoals();
+  initRecurring();
+  initDebts();
   initSettings();
   initNavigation();
 

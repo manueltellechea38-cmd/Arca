@@ -65,14 +65,30 @@
         </header>
 
         <div class="stats-grid" id="dashboardStats"></div>
+        <div class="smart-summary-grid">
+          <article class="liquid-card smart-summary-card">
+            <span>Disponible real</span>
+            <strong class="money-value" id="realAvailable">$ 0,00</strong>
+            <small id="realAvailableDetail">Descontando compromisos y metas.</small>
+          </article>
 
-        <article class="verse-card liquid-card">
+          <article class="liquid-card smart-summary-card">
+            <span>Próximo pago</span>
+            <strong id="nextPaymentName">Sin pagos próximos</strong>
+            <small id="nextPaymentDetail">Podés agregar gastos recurrentes desde Finanzas.</small>
+          </article>
+        </div>
+
+        <article class="liquid-card home-goal-preview" id="homeGoalPreview" hidden></article>
+
+
+        <article class="verse-card liquid-card" id="inspirationCard">
           <div class="verse-card__top">
             <div>
-              <p class="eyebrow">Versículo</p>
+              <p class="eyebrow" id="inspirationLabel">Versículo</p>
               <span class="verse-timer" id="verseTimer">Cambia cada 30 min</span>
             </div>
-            <button class="round-control round-control--small" id="saveVerse" type="button" aria-label="Guardar versículo" title="Guardar">
+            <button class="round-control round-control--small" id="saveVerse" type="button" aria-label="Guardar inspiración" title="Guardar">
               +
             </button>
           </div>
@@ -167,6 +183,110 @@
           </section>
         </section>
 
+
+        <section class="liquid-card">
+          <div class="card-heading">
+            <div>
+              <h3>Pagos fijos y recurrentes</h3>
+              <p>Arca recuerda el último importe pagado y lo usa como estimación para el próximo vencimiento.</p>
+            </div>
+          </div>
+
+          <form id="recurringForm" class="grid-form recurring-form" autocomplete="off">
+            <label class="ios-field">
+              <span>Nombre</span>
+              <input data-field="recurring-name" type="text" maxlength="60" autocomplete="off" required placeholder="Ejemplo: Netflix">
+            </label>
+
+            <label class="ios-field">
+              <span>Categoría</span>
+              <select id="recurringCategory"></select>
+            </label>
+
+            <label class="ios-field">
+              <span>Importe actual</span>
+              <div class="money-input"><b>$</b><input data-field="recurring-amount" type="text" inputmode="decimal" placeholder="0,00" required></div>
+            </label>
+
+            <label class="ios-field">
+              <span>Próximo vencimiento</span>
+              <input id="recurringDueDate" type="date" required>
+            </label>
+
+            <label class="ios-field">
+              <span>Frecuencia</span>
+              <select id="recurringFrequency">
+                <option value="monthly">Mensual</option>
+                <option value="weekly">Semanal</option>
+                <option value="yearly">Anual</option>
+              </select>
+            </label>
+
+            <label class="settings-row switch-row compact-switch">
+              <span><strong>Gasto obligatorio</strong><small>Se reserva del dinero disponible.</small></span>
+              <input id="recurringMandatory" type="checkbox" checked>
+            </label>
+
+            <button class="glass-secondary" type="submit">Agregar pago recurrente</button>
+          </form>
+
+          <div id="recurringList" class="stack-list"></div>
+        </section>
+
+        <section class="liquid-card">
+          <div class="card-heading">
+            <div>
+              <h3>Próximos pagos</h3>
+              <p>Vencimientos pendientes ordenados por fecha.</p>
+            </div>
+          </div>
+          <div id="upcomingPayments" class="stack-list"></div>
+        </section>
+
+        <section class="liquid-card">
+          <div class="card-heading">
+            <div>
+              <h3>Deudas y préstamos</h3>
+              <p>Registrá lo que debés y también el dinero que te deben.</p>
+            </div>
+          </div>
+
+          <form id="debtForm" class="grid-form debt-form" autocomplete="off">
+            <label class="ios-field">
+              <span>Tipo</span>
+              <select id="debtType">
+                <option value="owedToMe">Me deben</option>
+                <option value="iOwe">Yo debo</option>
+              </select>
+            </label>
+
+            <label class="ios-field">
+              <span>Persona</span>
+              <input data-field="debt-person" type="text" maxlength="60" autocomplete="off" required>
+            </label>
+
+            <label class="ios-field">
+              <span>Importe</span>
+              <div class="money-input"><b>$</b><input data-field="debt-amount" type="text" inputmode="decimal" placeholder="0,00" required></div>
+            </label>
+
+            <label class="ios-field">
+              <span>Vencimiento opcional</span>
+              <input id="debtDueDate" type="date">
+            </label>
+
+            <label class="ios-field span-2">
+              <span>Descripción opcional</span>
+              <input data-field="debt-note" type="text" maxlength="120" autocomplete="off">
+            </label>
+
+            <button class="glass-secondary" type="submit">Guardar deuda</button>
+          </form>
+
+          <div id="debtSummary" class="month-summary"></div>
+          <div id="debtList" class="stack-list"></div>
+        </section>
+
         <section class="liquid-card">
           <div class="card-heading">
             <div>
@@ -232,6 +352,54 @@
         </section>
       </section>
 
+      
+      <section class="view" data-view="goals" hidden>
+        <header class="section-title">
+          <p class="eyebrow">Objetivos</p>
+          <h2>Metas de ahorro</h2>
+        </header>
+
+        <section class="liquid-card">
+          <div class="card-heading">
+            <div>
+              <h3>Nueva meta</h3>
+              <p>La foto es opcional. Arca la comprime antes de guardarla.</p>
+            </div>
+          </div>
+
+          <form id="goalForm" class="goal-form" autocomplete="off">
+            <label class="ios-field">
+              <span>Nombre de la meta</span>
+              <input data-field="goal-name" type="text" maxlength="70" autocomplete="off" required placeholder="Ejemplo: nueva computadora">
+            </label>
+
+            <label class="ios-field">
+              <span>Objetivo</span>
+              <div class="money-input"><b>$</b><input data-field="goal-target" type="text" inputmode="decimal" placeholder="0,00" required></div>
+            </label>
+
+            <label class="ios-field">
+              <span>Ya ahorrado</span>
+              <div class="money-input"><b>$</b><input data-field="goal-current" type="text" inputmode="decimal" placeholder="0,00"></div>
+            </label>
+
+            <label class="ios-field">
+              <span>Fecha objetivo opcional</span>
+              <input id="goalDate" type="date">
+            </label>
+
+            <label class="ios-field span-2">
+              <span>Foto opcional</span>
+              <input id="goalPhoto" type="file" accept="image/*">
+            </label>
+
+            <button class="glass-primary" type="submit">Crear meta</button>
+          </form>
+        </section>
+
+        <div id="goalsList" class="goals-grid"></div>
+      </section>
+
       <section class="view" data-view="saved" hidden>
         <header class="section-title">
           <p class="eyebrow">Tu selección</p>
@@ -241,8 +409,8 @@
         <section class="liquid-card">
           <div class="card-heading">
             <div>
-              <h3>Versículos guardados</h3>
-              <p>Editalos, copialos, anclalos o borralos.</p>
+              <h3>Inspiraciones guardadas</h3>
+              <p>Versículos o frases que decidiste conservar.</p>
             </div>
           </div>
           <div id="savedList" class="saved-verses"></div>
@@ -265,7 +433,33 @@
 
           <label class="settings-row">
             <span><strong>Color de acento</strong><small>Botones y detalles de la app</small></span>
-            <select id="accentPreference"><option value="green">Verde</option><option value="blue">Azul</option><option value="graphite">Grafito</option><option value="violet">Violeta</option></select>
+            <select id="accentPreference">
+              <option value="green">Verde</option>
+              <option value="blue">Azul</option>
+              <option value="graphite">Grafito</option>
+              <option value="violet">Violeta</option>
+              <option value="white">Blanco</option>
+              <option value="black">Negro</option>
+              <option value="red">Rojo</option>
+              <option value="orange">Naranja</option>
+              <option value="yellow">Amarillo</option>
+              <option value="pink">Rosa</option>
+              <option value="cyan">Celeste</option>
+            </select>
+          </label>
+
+          <label class="settings-row">
+            <span><strong>Fondo de la aplicación</strong><small>Independiente del color de acento</small></span>
+            <select id="backgroundPreference">
+              <option value="default">Predeterminado</option>
+              <option value="white">Blanco</option>
+              <option value="black">Negro</option>
+              <option value="gray">Gris</option>
+              <option value="forest">Verde oscuro</option>
+              <option value="sand">Arena</option>
+              <option value="rose">Rosa suave</option>
+              <option value="ocean">Azul profundo</option>
+            </select>
           </label>
 
           <label class="settings-row switch-row">
@@ -280,9 +474,19 @@
         </section>
 
         <section class="settings-group liquid-card">
-          <div class="card-heading"><div><h3>Versículo del panel</h3><p>Elegí cada cuánto cambia.</p></div></div>
+          <div class="card-heading"><div><h3>Inspiración del panel</h3><p>Podés usar versículos, frases motivacionales o quitar esta sección por completo.</p></div></div>
+
           <label class="settings-row">
-            <span><strong>Frecuencia</strong><small>El versículo guardado nunca cambia</small></span>
+            <span><strong>Contenido</strong><small>Elegí qué querés ver en Inicio</small></span>
+            <select id="inspirationMode">
+              <option value="bible">Versículos bíblicos</option>
+              <option value="motivation">Frases motivacionales</option>
+              <option value="off">Oculto</option>
+            </select>
+          </label>
+
+          <label class="settings-row">
+            <span><strong>Frecuencia</strong><small>No se repite hasta recorrer la colección</small></span>
             <select id="verseInterval">
               <option value="15">15 minutos</option>
               <option value="30">30 minutos</option>
@@ -307,6 +511,17 @@
 
         <section class="settings-group liquid-card">
           <div class="card-heading"><div><h3>Copia de seguridad</h3><p>Guardá tus finanzas y ajustes en un archivo.</p></div></div>
+
+          <label class="settings-row">
+            <span><strong>Recordarme hacer una copia</strong><small id="backupStatus">Arca puede avisarte si pasó demasiado tiempo.</small></span>
+            <select id="backupReminder">
+              <option value="0">Nunca</option>
+              <option value="7">Cada 7 días</option>
+              <option value="14">Cada 14 días</option>
+              <option value="30">Cada 30 días</option>
+            </select>
+          </label>
+
           <div class="settings-actions">
             <button class="glass-secondary" id="exportBackup" type="button">Exportar datos</button>
             <label class="glass-secondary file-button">Importar datos<input id="importBackup" type="file" accept="application/json"></label>
@@ -323,6 +538,7 @@
     <nav class="tab-bar" aria-label="Navegación principal">
       <button data-route="home" class="active"><span class="tab-icon">⌂</span><span>Inicio</span></button>
       <button data-route="finance"><span class="tab-icon">$</span><span>Finanzas</span></button>
+      <button data-route="goals"><span class="tab-icon">◎</span><span>Metas</span></button>
       <button data-route="saved"><span class="tab-icon">♡</span><span>Guardados</span></button>
       <button data-route="settings"><span class="tab-icon">⌘</span><span>Ajustes</span></button>
     </nav>
