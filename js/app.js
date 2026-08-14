@@ -1,4 +1,4 @@
-const APP_VERSION = "0.3.2";
+const APP_VERSION = "0.3.3";
 const PREFIX = "woodmanager-v022:";
 const OLD_PREFIX = "woodmanager-v021:";
 
@@ -1270,8 +1270,20 @@ function renderLimits() {
     return `
       <article class="list-row limit ${status}">
         <div class="list-row__main">
-          <strong>${escapeHtml(category)} · <span data-money>${privacyHidden ? "••••••" : formatMoney(limit.amount)}</span></strong>
-          <small>${escapeHtml(limit.description || "Sin descripción")} · ${Math.round(percentage)}% utilizado</small>
+          <strong>
+            ${escapeHtml(category)} - 
+            <span data-money>
+              ${privacyHidden ? "••••••" : formatMoney(limit.amount)}
+            </span>
+          </strong>
+
+          <small>
+            ${escapeHtml(limit.description || "Sin descripción")} - 
+            ${Math.round(percentage)}% - 
+            <span data-money>
+              ${privacyHidden ? "••••" : formatMoney(spent)}
+            </span>
+          </small>
           <div class="progress"><span style="width:${Math.min(percentage, 100)}%"></span></div>
         </div>
         <div class="list-actions">
