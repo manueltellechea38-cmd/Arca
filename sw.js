@@ -1,4 +1,4 @@
-const CACHE = "arca-v030";
+const CACHE = "arca-v031";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -12,7 +12,6 @@ const APP_SHELL = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)));
-  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -36,4 +35,11 @@ self.addEventListener("fetch", (event) => {
       })
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match("./index.html")))
   );
+});
+
+
+self.addEventListener("message", (event) => {
+  if (event.data?.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });

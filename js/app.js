@@ -1,3 +1,4 @@
+const APP_VERSION = "0.3.1";
 const PREFIX = "woodmanager-v022:";
 const OLD_PREFIX = "woodmanager-v021:";
 
@@ -440,6 +441,7 @@ const DEFAULT_SETTINGS = {
   inspirationMode: "bible",
   backupReminderDays: 14,
   lastBackupAt: null,
+  financeSections: {},
   privacyOnStart: false,
   dashboardCards: [
     { id: "balance", visible: true },
@@ -932,6 +934,158 @@ function initPrivacy() {
     renderFinance();
   });
 }
+
+
+function initFinanceCollapsibles() {
+  const financeView = $('[data-view="finance"]');
+
+  if (!financeView) return;
+
+  const descriptors = [
+    {
+      key: "summary",
+      element: financeView.querySelector(".finance-hero"),
+      title: "Estado financiero"
+    },
+    {
+      key: "movements",
+      element: financeView.querySelector(".finance-grid"),
+      title: "Nuevo movimiento y saldo inicial"
+    },
+    {
+      key: "recurring",
+      heading: "Pagos fijos y recurrentes"
+    },
+    {
+      key: "upcoming",
+      heading: "Próximos pagos"
+    },
+    {
+      key: "debts",
+      heading: "Deudas y préstamos"
+    },
+    {
+      key: "limits",
+      heading: "Límites mensuales"
+    },
+    {
+      key: "categories",
+      heading: "Categorías"
+    },
+    {
+      key: "history",
+      heading: "Historial mensual"
+    }
+  ];
+
+  descriptors.forEach((descriptor) => {
+    let section = descriptor.element;
+
+    if (!section && descriptor.heading) {
+      const heading = [...financeView.querySelectorAll("h3")]
+        .find((item) =>
+          item.textContent.trim() === descriptor.heading
+        );
+
+      section = heading?.closest(".liquid-card");
+    }
+
+    if (!section || section.dataset.collapsibleReady === "true") {
+      return;
+    }
+
+    prepareFinanceCollapsible(
+      section,
+      descriptor.key,
+      descriptor.title || descriptor.heading
+    );
+  });
+}
+
+function prepareFinanceCollapsible(section, key, title) {
+  section.dataset.collapsibleReady = "true";
+  section.dataset.financeSection = key;
+  section.classList.add("finance-collapsible");
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "finance-collapsible__content";
+
+  while (section.firstChild) {
+    wrapper.appendChild(section.firstChild);
+  }
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "finance-section-toggle";
+
+  toggle.innerHTML = `
+    <span>${escapeHtml(title)}</span>
+    <span class="finance-section-chevron" aria-hidden="true">⌄</span>
+  `;
+
+  section.appendChild(toggle);
+  section.appendChild(wrapper);
+
+  const saved =
+    state.settings.financeSections?.[key];
+
+  const expanded = saved !== false;
+
+  applyFinanceSectionState(
+    section,
+    expanded,
+    false
+  );
+
+  toggle.addEventListener("click", () => {
+    const current =
+      toggle.getAttribute("aria-expanded") === "true";
+
+    applyFinanceSectionState(
+      section,
+      !current,
+      true
+    );
+  });
+}
+
+function applyFinanceSectionState(
+  section,
+  expanded,
+  persist = true
+) {
+  const toggle =
+    section.querySelector(".finance-section-toggle");
+
+  const content =
+    section.querySelector(".finance-collapsible__content");
+
+  if (!toggle || !content) return;
+
+  toggle.setAttribute(
+    "aria-expanded",
+    String(expanded)
+  );
+
+  content.hidden = !expanded;
+
+  section.classList.toggle(
+    "is-collapsed",
+    !expanded
+  );
+
+  if (persist) {
+    const key = section.dataset.financeSection;
+
+    state.settings.financeSections = {
+      ...(state.settings.financeSections || {}),
+      [key]: expanded
+    };
+
+    save("settings", state.settings);
+  }
+}
+
 
 function initFinance() {
   $("#transactionDate").value = todayInput();
@@ -1493,43 +1647,119 @@ function renderSmartHome() {
   const mandatory = pendingMandatoryAmount();
   const reserved = goalsReservedAmount();
 
-  $("#realAvailable").textContent = privacyHidden ? "••••••" : formatMoney(available);
+  $("#realAvailable").textContent =
+    privacyHidden ? "••••••" : formatMoney(available);
+
   $("#realAvailableDetail").textContent =
     `Pagos obligatorios: ${privacyHidden ? "••••" : formatMoney(mandatory)} · Metas: ${privacyHidden ? "••••" : formatMoney(reserved)}`;
 
-  const upcoming = state.recurring
-    .filter((item) => item.active !== false)
-    .map((item) => ({ item, date: nextRecurringDate(item) }))
-    .sort((a, b) => a.date - b.date)[0];
+  const now = new Date();
+  const nextMonthStart = new Date(
+    now.getFullYear(),
+    now.getMonth() + 1,
+    1,
+    0,
+    0,
+    0,
+    0
+  );
 
-  if (upcoming) {
-    $("#nextPaymentName").textContent = upcoming.item.name;
-    const days = daysBetween(new Date(), upcoming.date);
-    $("#nextPaymentDetail").textContent =
-      `${days <= 0 ? "Vence hoy" : `En ${days} día${days === 1 ? "" : "s"}`} · ${privacyHidden ? "••••" : formatMoney(estimatedRecurringAmount(upcoming.item))}`;
+  const nextMonthEnd = new Date(
+    now.getFullYear(),
+    now.getMonth() + 2,
+    0,
+    23,
+    59,
+    59,
+    999
+  );
+
+  const upcomingPayments = state.recurring
+    .filter((item) => item.active !== false)
+    .map((item) => ({
+      item,
+      date: nextRecurringDate(item)
+    }))
+    .filter(({ date }) =>
+      date >= nextMonthStart &&
+      date <= nextMonthEnd
+    )
+    .sort((a, b) => a.date - b.date);
+
+  if (upcomingPayments.length) {
+    const nextMonthName = new Intl.DateTimeFormat("es-UY", {
+      month: "long"
+    }).format(nextMonthStart);
+
+    $("#nextPaymentName").textContent =
+      `${upcomingPayments.length} pago${upcomingPayments.length === 1 ? "" : "s"} pendiente${upcomingPayments.length === 1 ? "" : "s"} en ${nextMonthName}`;
+
+    $("#nextPaymentDetail").innerHTML = upcomingPayments
+      .map(({ item, date }) => {
+        const dateLabel = new Intl.DateTimeFormat("es-UY", {
+          day: "2-digit",
+          month: "short"
+        }).format(date);
+
+        const amountLabel = privacyHidden
+          ? "••••"
+          : formatMoney(estimatedRecurringAmount(item));
+
+        return `
+          <span class="home-payment-item">
+            <span class="home-payment-item__name">${escapeHtml(item.name)}</span>
+            <strong>${dateLabel} · ${amountLabel}</strong>
+          </span>
+        `;
+      })
+      .join("");
   } else {
-    $("#nextPaymentName").textContent = "Sin pagos próximos";
-    $("#nextPaymentDetail").textContent = "Podés agregar gastos recurrentes desde Finanzas.";
+    $("#nextPaymentName").textContent = "Sin pagos pendientes";
+    $("#nextPaymentDetail").textContent =
+      "No tenés pagos recurrentes pendientes para el próximo mes.";
   }
 
   const mainGoal = [...state.goals]
-    .filter((goal) => Number(goal.current || 0) < Number(goal.target || 0))
-    .sort((a, b) => Number(b.current || 0) / Math.max(1, Number(b.target || 0)) - Number(a.current || 0) / Math.max(1, Number(a.target || 0)))[0];
+    .filter((goal) =>
+      Number(goal.current || 0) < Number(goal.target || 0)
+    )
+    .sort((a, b) =>
+      Number(b.current || 0) / Math.max(1, Number(b.target || 0)) -
+      Number(a.current || 0) / Math.max(1, Number(a.target || 0))
+    )[0];
 
   const preview = $("#homeGoalPreview");
+
   if (!mainGoal) {
     preview.hidden = true;
   } else {
-    const percentage = Math.min(100, Math.round((Number(mainGoal.current || 0) / Math.max(1, Number(mainGoal.target || 0))) * 100));
+    const percentage = Math.min(
+      100,
+      Math.round(
+        (Number(mainGoal.current || 0) /
+          Math.max(1, Number(mainGoal.target || 0))) *
+        100
+      )
+    );
+
     preview.hidden = false;
+
     preview.innerHTML = `
       <div class="goal-preview-home">
         ${mainGoal.photo ? `<img src="${mainGoal.photo}" alt="">` : ""}
         <div>
           <p class="eyebrow">Meta principal</p>
           <h3>${escapeHtml(mainGoal.name)}</h3>
-          <strong data-money>${privacyHidden ? "••••••" : `${formatMoney(mainGoal.current)} / ${formatMoney(mainGoal.target)}`}</strong>
-          <div class="progress"><span style="width:${percentage}%"></span></div>
+          <strong data-money>
+            ${
+              privacyHidden
+                ? "••••••"
+                : `${formatMoney(mainGoal.current)} / ${formatMoney(mainGoal.target)}`
+            }
+          </strong>
+          <div class="progress">
+            <span style="width:${percentage}%"></span>
+          </div>
           <small>${percentage}% completado</small>
         </div>
       </div>
@@ -1542,65 +1772,165 @@ function renderSmartHome() {
 async function compressGoalPhoto(file) {
   if (!file) return "";
 
-  const bitmap = await createImageBitmap(file);
-  const maxSize = 900;
-  const scale = Math.min(1, maxSize / Math.max(bitmap.width, bitmap.height));
-  const width = Math.round(bitmap.width * scale);
-  const height = Math.round(bitmap.height * scale);
+  if (!file.type.startsWith("image/")) {
+    throw new Error("El archivo seleccionado no es una imagen.");
+  }
+
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new Error("No se pudo leer la imagen."));
+
+    reader.readAsDataURL(file);
+  });
+
+  const image = await new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("No se pudo abrir la imagen."));
+    img.src = dataUrl;
+  });
+
+  const maxSize = 520;
+  const scale = Math.min(
+    1,
+    maxSize / Math.max(image.naturalWidth, image.naturalHeight)
+  );
+
+  const width = Math.max(
+    1,
+    Math.round(image.naturalWidth * scale)
+  );
+
+  const height = Math.max(
+    1,
+    Math.round(image.naturalHeight * scale)
+  );
 
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
 
-  canvas.getContext("2d").drawImage(bitmap, 0, 0, width, height);
-  bitmap.close?.();
+  const context = canvas.getContext("2d", {
+    alpha: false
+  });
 
-  return canvas.toDataURL("image/jpeg", 0.78);
+  context.drawImage(image, 0, 0, width, height);
+
+  return canvas.toDataURL("image/jpeg", 0.68);
+}
+
+function resetGoalForm(form) {
+  form.reset();
+
+  $("#goalDate").value = "";
+  $("#goalPhoto").value = "";
+
+  randomizePrivateFieldNames(form);
+
+  const firstField = form.querySelector('[data-field="goal-name"]');
+  firstField?.focus({ preventScroll: true });
 }
 
 function initGoals() {
-  $("#goalForm").addEventListener("submit", async (event) => {
+  const form = $("#goalForm");
+
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const name = fieldValue(event.currentTarget, "goal-name").trim();
-    const target = parseAmount(fieldValue(event.currentTarget, "goal-target"));
-    const current = parseAmount(fieldValue(event.currentTarget, "goal-current")) || 0;
-    const file = $("#goalPhoto").files?.[0];
+    const submitButton = event.submitter ||
+      form.querySelector('button[type="submit"]');
 
-    if (!name || !Number.isFinite(target) || target <= 0) {
-      toast("Revisá el nombre y el importe de la meta.");
+    if (submitButton?.disabled) return;
+
+    const name = fieldValue(form, "goal-name").trim();
+    const target = parseAmount(
+      fieldValue(form, "goal-target")
+    );
+
+    const currentRaw = fieldValue(form, "goal-current").trim();
+    const current = currentRaw
+      ? parseAmount(currentRaw)
+      : 0;
+
+    const file = $("#goalPhoto").files?.[0] || null;
+
+    if (
+      !name ||
+      !Number.isFinite(target) ||
+      target <= 0 ||
+      !Number.isFinite(current) ||
+      current < 0
+    ) {
+      toast("Revisá el nombre y los importes de la meta.");
       return;
     }
 
-    let photo = "";
-    if (file) {
-      try {
-        photo = await compressGoalPhoto(file);
-      } catch {
-        toast("No se pudo procesar la foto.");
-        return;
-      }
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.dataset.originalText =
+        submitButton.textContent;
+      submitButton.textContent = "Guardando…";
     }
 
-    state.goals.unshift({
-      id: uid("goal"),
-      name,
-      target,
-      current: Math.max(0, current),
-      targetDate: $("#goalDate").value || "",
-      photo,
-      createdAt: new Date().toISOString()
-    });
+    try {
+      const photo = file
+        ? await compressGoalPhoto(file)
+        : "";
 
-    save("goals", state.goals);
-    event.currentTarget.reset();
-    randomizePrivateFieldNames(event.currentTarget);
-    renderGoals();
-    renderHome();
-    toast("Meta creada.");
+      const goal = {
+        id: uid("goal"),
+        name,
+        target,
+        current,
+        targetDate: $("#goalDate").value || "",
+        photo,
+        createdAt: new Date().toISOString()
+      };
+
+      state.goals.unshift(goal);
+
+      try {
+        save("goals", state.goals);
+      } catch (error) {
+        state.goals = state.goals.filter(
+          (item) => item.id !== goal.id
+        );
+
+        throw new Error(
+          "No hay suficiente espacio para guardar la meta."
+        );
+      }
+
+      renderGoals();
+      renderHome();
+
+      resetGoalForm(form);
+
+      toast("Meta guardada.");
+    } catch (error) {
+      console.error(error);
+
+      toast(
+        error?.message ||
+        "No se pudo guardar la meta."
+      );
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent =
+          submitButton.dataset.originalText ||
+          "Crear meta";
+      }
+    }
   });
 
-  $("#goalsList").addEventListener("click", handleGoalAction);
+  $("#goalsList").addEventListener(
+    "click",
+    handleGoalAction
+  );
 }
 
 function renderGoals() {
@@ -1823,19 +2153,33 @@ function handleRecurringAction(event) {
   const remove = event.target.closest("[data-recurring-delete]");
 
   if (pay) {
-    const item = state.recurring.find((entry) => entry.id === pay.dataset.recurringPay);
+    const item = state.recurring.find(
+      (entry) => entry.id === pay.dataset.recurringPay
+    );
+
     if (!item) return;
 
-    const raw = prompt(`Importe pagado de ${item.name}:`, formatInputMoney(estimatedRecurringAmount(item)));
+    const dueDate = nextRecurringDate(item);
+    const period = recurringPeriodKey(item, dueDate);
+
+    if (item.lastPaidPeriod === period) {
+      toast("Este vencimiento ya está marcado como pagado.");
+      return;
+    }
+
+    const raw = prompt(
+      `Importe pagado de ${item.name}:`,
+      formatInputMoney(estimatedRecurringAmount(item))
+    );
+
     if (raw === null) return;
 
     const amount = parseAmount(raw);
+
     if (!Number.isFinite(amount) || amount <= 0) {
       toast("Importe inválido.");
       return;
     }
-
-    const dueDate = nextRecurringDate(item);
 
     state.transactions.unshift({
       id: uid("tx"),
@@ -1894,7 +2238,14 @@ function handleRecurringAction(event) {
         target.name = String(form.get("name") || "").trim();
         target.amount = amount;
         target.lastAmount = amount;
-        target.nextDue = String(form.get("nextDue"));
+
+        const newNextDue = String(form.get("nextDue"));
+
+        if (target.nextDue !== newNextDue) {
+          target.lastPaidPeriod = null;
+        }
+
+        target.nextDue = newNextDue;
         target.frequency = String(form.get("frequency"));
         target.mandatory = form.get("mandatory") === "on";
 
@@ -2333,6 +2684,133 @@ function importBackup(event) {
   reader.readAsText(file);
 }
 
+
+let waitingServiceWorker = null;
+
+function showUpdateBanner(worker) {
+  waitingServiceWorker = worker;
+
+  const banner = $("#updateBanner");
+
+  if (banner) {
+    banner.hidden = false;
+  }
+}
+
+function initUpdateControls() {
+  $("#appVersion").textContent = APP_VERSION;
+
+  $("#updateLater")?.addEventListener(
+    "click",
+    () => {
+      $("#updateBanner").hidden = true;
+    }
+  );
+
+  $("#updateNow")?.addEventListener(
+    "click",
+    () => {
+      const button = $("#updateNow");
+
+      if (!waitingServiceWorker) {
+        location.reload();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Actualizando…";
+
+      waitingServiceWorker.postMessage({
+        type: "SKIP_WAITING"
+      });
+    }
+  );
+}
+
+async function registerArcaServiceWorker() {
+  if (!("serviceWorker" in navigator)) {
+    return;
+  }
+
+  try {
+    let refreshing = false;
+
+    navigator.serviceWorker.addEventListener(
+      "controllerchange",
+      () => {
+        if (refreshing) return;
+
+        refreshing = true;
+        location.reload();
+      }
+    );
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "./sw.js",
+        {
+          updateViaCache: "none"
+        }
+      );
+
+    if (registration.waiting) {
+      showUpdateBanner(
+        registration.waiting
+      );
+    }
+
+    registration.addEventListener(
+      "updatefound",
+      () => {
+        const worker =
+          registration.installing;
+
+        if (!worker) return;
+
+        worker.addEventListener(
+          "statechange",
+          () => {
+            if (
+              worker.state === "installed" &&
+              navigator.serviceWorker.controller
+            ) {
+              showUpdateBanner(worker);
+            }
+          }
+        );
+      }
+    );
+
+    const check = () => {
+      registration.update().catch(() => {});
+    };
+
+    check();
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        if (
+          document.visibilityState === "visible"
+        ) {
+          check();
+        }
+      }
+    );
+
+    setInterval(
+      check,
+      60 * 60 * 1000
+    );
+  } catch (error) {
+    console.warn(
+      "No se pudo comprobar actualizaciones.",
+      error
+    );
+  }
+}
+
+
 function init() {
   applyAppearance();
   hardenTextFields();
@@ -2340,10 +2818,12 @@ function init() {
   $("#transactionDate").value = todayInput();
 
   initWelcome();
+  initUpdateControls();
   initClock();
   initVerseActions();
   initPrivacy();
   initFinance();
+  initFinanceCollapsibles();
   initSaved();
   initGoals();
   initRecurring();
@@ -2355,34 +2835,9 @@ function init() {
   renderFinance();
   renderSaved();
 
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", async () => {
-      try {
-        let reloadingForUpdate = false;
-        const hadController = Boolean(navigator.serviceWorker.controller);
-
-        navigator.serviceWorker.addEventListener("controllerchange", () => {
-          if (!hadController || reloadingForUpdate) return;
-          reloadingForUpdate = true;
-          location.reload();
-        });
-
-        const registration = await navigator.serviceWorker.register("./sw.js", {
-          updateViaCache: "none"
-        });
-
-        registration.update().catch(() => {});
-
-        document.addEventListener("visibilitychange", () => {
-          if (document.visibilityState === "visible") {
-            registration.update().catch(() => {});
-          }
-        });
-      } catch (_) {
-        // La app sigue funcionando aunque no se pueda registrar el service worker.
-      }
-    });
-  }
+  window.addEventListener("load", () => {
+    registerArcaServiceWorker();
+  });
 }
 
 init();

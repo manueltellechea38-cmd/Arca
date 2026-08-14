@@ -528,6 +528,24 @@
           </div>
         </section>
 
+
+        <section class="settings-group liquid-card">
+          <div class="card-heading">
+            <div>
+              <h3>Acerca de Arca</h3>
+              <p>Información de la versión instalada.</p>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <span>
+              <strong>Versión instalada</strong>
+              <small>Las actualizaciones aparecerán dentro de la app.</small>
+            </span>
+            <strong id="appVersion">0.3.1</strong>
+          </div>
+        </section>
+
         <section class="settings-group liquid-card danger-zone">
           <div class="card-heading"><div><h3>Datos locales</h3><p>Esta acción no se puede deshacer.</p></div></div>
           <button class="danger-button" id="resetData" type="button">Borrar datos de Arca</button>
@@ -598,6 +616,22 @@
       </p>
     </section>
   </div>
+
+
+  <aside class="update-banner" id="updateBanner" hidden aria-live="polite">
+    <div class="update-banner__content">
+      <div class="update-banner__icon" aria-hidden="true">↻</div>
+      <div>
+        <strong>Nueva versión disponible</strong>
+        <small>Hay una actualización de Arca lista para instalar.</small>
+      </div>
+    </div>
+
+    <div class="update-banner__actions">
+      <button class="update-later" id="updateLater" type="button">Más tarde</button>
+      <button class="glass-primary update-now" id="updateNow" type="button">Actualizar ahora</button>
+    </div>
+  </aside>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 

@@ -419,3 +419,201 @@ html[data-accent="yellow"] .glass-primary{color:#211900}
   .goal-preview-home{grid-template-columns:72px 1fr}
   .goal-preview-home img{width:72px;height:72px}
 }
+
+
+/* Arca v0.3.1 - todos los pagos del próximo mes */
+#nextPaymentDetail{
+  display:grid;
+  gap:4px;
+  margin-top:8px;
+}
+
+.home-payment-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:7px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.home-payment-item:last-child{
+  border-bottom:0;
+}
+
+.home-payment-item__name{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:var(--text);
+  font-weight:720;
+}
+
+.home-payment-item strong{
+  flex:0 0 auto;
+  color:var(--muted);
+  font-size:.76rem;
+  white-space:nowrap;
+}
+
+/* Arca v0.3.1 - Finanzas plegables */
+.finance-collapsible{
+  display:block !important;
+}
+
+.finance-collapsible > .finance-section-toggle{
+  order:-1;
+}
+
+.finance-section-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:0 0 16px;
+  padding:0 0 13px;
+  border:0;
+  border-bottom:1px solid var(--line);
+  background:transparent;
+  color:var(--text);
+  text-align:left;
+  font-size:1.05rem;
+  font-weight:830;
+}
+
+.finance-section-chevron{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:var(--surface-soft);
+  transition:transform .2s ease;
+  font-size:1.15rem;
+}
+
+.finance-section-toggle[aria-expanded="false"]
+.finance-section-chevron{
+  transform:rotate(-90deg);
+}
+
+.finance-collapsible.is-collapsed{
+  padding-bottom:4px;
+}
+
+.finance-collapsible.is-collapsed
+.finance-section-toggle{
+  margin-bottom:0;
+  border-bottom:0;
+}
+
+.finance-collapsible__content{
+  width:100%;
+}
+
+/* Mantener las dos columnas originales en Nuevo movimiento / Saldo */
+.finance-grid.finance-collapsible
+.finance-collapsible__content{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+}
+
+/* El resumen conserva su estructura */
+.finance-hero.finance-collapsible
+.finance-collapsible__content{
+  display:block;
+}
+
+/* Arca v0.3.1 - botón durante guardado */
+button:disabled{
+  cursor:default;
+  opacity:.62;
+}
+
+/* Arca v0.3.1 - actualización disponible */
+.update-banner{
+  position:fixed;
+  left:50%;
+  bottom:calc(94px + env(safe-area-inset-bottom));
+  z-index:220;
+  transform:translateX(-50%);
+  width:min(calc(100% - 24px),620px);
+  padding:14px;
+  border:1px solid rgba(255,255,255,.42);
+  border-radius:24px;
+  background:color-mix(
+    in srgb,
+    var(--surface-strong) 94%,
+    transparent
+  );
+  box-shadow:0 20px 60px rgba(0,0,0,.24);
+  backdrop-filter:blur(28px) saturate(160%);
+  -webkit-backdrop-filter:blur(28px) saturate(160%);
+}
+
+.update-banner__content{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.update-banner__content strong,
+.update-banner__content small{
+  display:block;
+}
+
+.update-banner__content small{
+  margin-top:2px;
+  color:var(--muted);
+}
+
+.update-banner__icon{
+  display:grid;
+  place-items:center;
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  border-radius:14px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-size:1.35rem;
+  font-weight:900;
+}
+
+.update-banner__actions{
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:8px;
+  margin-top:12px;
+}
+
+.update-later{
+  min-height:46px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--surface-soft);
+  color:var(--text);
+  font-weight:800;
+}
+
+.update-now{
+  min-height:46px;
+}
+
+@media(max-width:820px){
+  .finance-grid.finance-collapsible
+  .finance-collapsible__content{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:520px){
+  .update-banner__actions{
+    grid-template-columns:1fr 1fr;
+  }
+}

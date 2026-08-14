@@ -1,24 +1,22 @@
-# Arca v0.3.0
+# Arca v0.3.1
 
-Nueva etapa de Arca enfocada en planificación financiera.
+## Cambios principales
 
-## Novedades
-- Metas de ahorro con foto opcional comprimida localmente.
-- Aportes a metas y cálculo aproximado de ahorro mensual según fecha objetivo.
-- Dinero disponible real descontando metas y pagos obligatorios pendientes.
-- Pagos fijos y recurrentes con frecuencia mensual, semanal o anual.
-- El último importe pagado pasa a ser la estimación del próximo vencimiento.
-- Próximos pagos ordenados por fecha.
-- Deudas y préstamos: "me deben" / "yo debo", vencimiento, pagos parciales y saldo pendiente.
-- Los pagos de deudas generan el movimiento correspondiente.
-- Privacidad aplicada también a metas, pagos y deudas.
-- Inspiración configurable: versículos, frases motivacionales o completamente oculta.
-- Frases motivacionales sin buscador.
-- Más opciones de color de acento y fondos de aplicación.
-- Recordatorio configurable de copia de seguridad.
-- Exportación/importación ampliada para incluir metas, recurrentes y deudas.
-- Se mantiene el modo de recuperación de emergencia.
-- Sin calendario financiero, por decisión de producto.
+- Aviso interno cuando hay una nueva versión disponible.
+- Botones "Actualizar ahora" y "Más tarde".
+- La actualización ya no se fuerza mientras estás usando la app.
+- Versión instalada visible en Ajustes.
+- Inicio muestra todos los pagos recurrentes pendientes del próximo mes.
+- Corrección adicional de fechas editadas en pagos recurrentes.
+- Protección contra marcar dos veces el mismo vencimiento como pagado.
+- Todas las secciones principales de Finanzas se pueden plegar/desplegar.
+- Arca recuerda qué secciones de Finanzas dejaste abiertas o cerradas.
+- Metas de ahorro: guardado corregido para iPhone/Safari.
+- Fotos de metas comprimidas con FileReader + Image + Canvas.
+- Al guardar una meta, el formulario queda vacío inmediatamente.
+- El botón de guardar no permite doble envío mientras procesa la meta.
+- Se mantiene el modo de recuperación de emergencia y los datos locales existentes.
 
-## Datos
-La versión 0.3.0 continúa usando el almacenamiento local existente para conservar compatibilidad con los datos anteriores. La sincronización online se deja para una versión posterior.
+## Compatibilidad
+
+Arca sigue usando el mismo almacenamiento local para no perder los datos de las versiones anteriores.

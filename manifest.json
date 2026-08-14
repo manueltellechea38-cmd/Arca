@@ -1,7 +1,7 @@
 {
   "name": "Arca",
   "short_name": "Arca",
-  "description": "Finanzas personales, metas, pagos recurrentes y organización.",
+  "description": "Finanzas personales, metas, pagos recurrentes, deudas y organización.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
